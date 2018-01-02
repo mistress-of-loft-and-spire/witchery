@@ -1,4 +1,4 @@
-var version = "0.2 BETA";
+var version = "0.3 BETA";
 
 var canvas;
 var palette = {
