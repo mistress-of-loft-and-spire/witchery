@@ -1,0 +1,165 @@
+html{
+	height: 100%;
+}
+
+body {
+	margin: 0 !important;
+	padding: 0 !important;
+	
+	height: 100%;
+	
+	overflow: hidden;
+	
+	white-space: nowrap;
+	
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	
+	cursor: default;
+	
+	color: #7664a0;
+	
+	font-size: 16px;
+	font-family: "Helvetica", "Arial", sans;
+	line-height: 170%;
+}
+
+#appWindow {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+}
+
+
+
+#toolPanel {
+	background: #fff;
+	border-bottom: solid 4px #332349;
+	
+	width: 100%;
+	
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	
+	font-size: 20px;
+	
+	box-sizing: border-box;
+	flex: 0 1 auto;
+}
+
+#toolPanel .button {
+	background: #fff;
+	border-bottom: none;
+	margin-bottom: 0px;
+}
+
+#toolPanel .button:hover, #toolPanel .button:focus {
+	background: #413359;
+}
+
+#mainPanel {
+	background: #413359;
+	background-image: url("../img/background-title.png"), url("../img/background-grid.png");
+	background-position: center, left top;
+	background-repeat: no-repeat, repeat;
+	
+	width: 100%;
+	
+	overflow: scroll;
+	
+	box-sizing: border-box;
+	flex: 1 1 auto;
+}
+
+
+.mapTile {
+	position: relative;
+}
+
+canvas {
+	background: #332349;
+	box-shadow: 0 4px 0 0 #332349;
+	
+	border-radius: 4px;
+	
+	width: 128px;
+	height: 128px;
+	
+	position: absolute;
+}
+
+
+
+.dialog {
+	background: #fff;
+	box-shadow: 0 4px 0 0 #332349;
+	
+	border-radius: 4px;
+	
+	top:100px;
+	left:30px;
+	
+	display: block;
+	position: absolute;
+	
+	min-width: 100px;
+}
+
+.dialog .title {
+	background: #ece8ff;
+	
+	border-radius: 4px 4px 0px 0px;
+	
+	padding: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	font-size: 20px;
+}
+
+.dialog .content {
+	padding: 15px;
+	padding-bottom: 0px;
+}
+
+
+
+.button, button, textarea, p {
+	margin: 0px;
+	margin-bottom: 15px;
+	
+	display: block;
+}
+
+.button, button {
+	background: #ece8ff;
+	border: none;
+	border-bottom: solid 1px #ded5f3;
+	
+	border-radius: 4px;
+	
+	display: inline-block;
+	
+	padding: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	
+	margin-right: 10px;
+	
+	color: #7664a0;
+	font-size: 18px;
+}
+
+.button:hover, .button:focus,
+button:hover, button:focus {
+	background: #413359;
+	color: #fff;
+}
+
+textarea {
+	font-size: 14px;
+}

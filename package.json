@@ -1,0 +1,19 @@
+{
+  "name": "bitsy-overworld-editor",
+  "version": "0.1.0",
+  "description": "A visual map builder for Bitsy",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/-----------",
+  "keywords": [
+    "Bitsy",
+    "editor"
+  ],
+  "author": "voec",
+  "license": "-------------",
+  "devDependencies": {
+    "electron": "~1.7.8"
+  }
+}
