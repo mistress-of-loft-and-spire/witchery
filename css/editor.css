@@ -51,18 +51,17 @@ body {
 	flex: 0 1 auto;
 }
 
-#toolPanel .button {
+#toolPanel button {
 	background: #fff;
 	border-bottom: none;
 	margin-bottom: 0px;
 }
 
-#toolPanel .button:hover, #toolPanel button:hover,
-#toolPanel .button:focus, #toolPanel button:focus {
+#toolPanel button:hover {
 	background: #d6d1ea;
 }
 
-#toolPanel .button:active, #toolPanel button:active {
+#toolPanel button:active {
 	background: #413359;
 }
 
@@ -71,6 +70,7 @@ body {
 	background-image: url("../img/background-title.png"), url("../img/background-grid.png");
 	background-position: center, left top;
 	background-repeat: no-repeat, repeat;
+	background-attachment: fixed, local;
 	
 	width: 100%;
 	
@@ -112,6 +112,8 @@ canvas {
 	position: absolute;
 	
 	min-width: 100px;
+	
+	z-index: 10000;
 }
 
 .dialog .title {
@@ -129,6 +131,8 @@ canvas {
 .dialog .content {
 	padding: 15px;
 	padding-bottom: 0px;
+	
+	white-space: normal;
 }
 
 

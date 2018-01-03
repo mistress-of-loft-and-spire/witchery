@@ -2,15 +2,15 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>&#10024;Overworld Witchery&#10024;</title>
+		<title>Overworld Witchery</title>
 		
 		<link rel="icon" type="image/png" href="img/witchcat.png" />
 		
-		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/editor.css">
+		<link rel="stylesheet" type="text/css" href="css/animation.css">
 		
-		<!-- JS -->
-		<script src="js/drag.js"></script>
+		<script src="js/bitsy.js"></script>
+		<script src="js/ui.js"></script>
 		
 	</head>
 	
@@ -20,15 +20,15 @@
 		
 			<div id="toolPanel">
 				
-				<div class="button" title="load game data">load</div>
-				<div class="button" title="some infos about this tool">about</div>
+				<button id="loadDialogButton" title="load game data" onmouseup="toggle(loadDialog);">load</button>
+				<button id="aboutDialogButton"title="some infos about this tool" onmouseup="toggle(aboutDialog);">about</button>
 				
 			</div>
 			
 			<div id="mainPanel">
 			
-				<div id="loadDialog" style="left:1400px;" class="dialog">
-					<div class="title" onmousedown="startDrag(event);">load game data<button title="close window" class="close">&#10006;</button></div>
+				<div id="loadDialog" style="left:20px;display:none;" class="dialog">
+					<div class="title" onmousedown="startDrag(event);">load game data<button title="close window" class="close" onmouseup="hide(loadDialog);">&#10006;</button></div>
 					
 					<div class="content">
 					
@@ -39,18 +39,20 @@
 					</div>
 				</div>
 				
-				<div id="aboutDialog" style="left:1000px;" class="dialog">
-					<div class="title" onmousedown="startDrag(event);">about this tool<button title="close window" class="close">&#10006;</button></div>
+				<div id="aboutDialog" style="left:375px;width:336px;display:none;" class="dialog">
+					<div class="title" onmousedown="startDrag(event);">about this tool<button title="close window" class="close" onmouseup="hide(aboutDialog);">&#10006;</button></div>
 					
 					<div class="content">
 					
-						<p>overworld witchery was brewed up in</br>a magic cauldron by <a href="https://www.twitter.com/notbanachtarski">nicole / voec*☄︎˟︎｡ﾟ</a>
+						<p>overworld witchery was brewed up in a magic cauldron by <a href="https://www.twitter.com/notbanachtarski" target="_blank">nicole / voec*☄︎˟︎｡ﾟ</a>
 						</br></br>
 						special thanks to:</br>
 						* adam le doux for making bitsy</br>
 						* the bitsy community!
 						</br></br>
-						<b>version <script>document.write(version);</script></b></p>
+						backdrop font:</br><a href="https://w.itch.io/world-of-fonts" target="_blank">frog princess</a> by anna anthropy
+						</br></br>
+						<b>version <script>document.write(version);</script></b><br></p>
 						
 					</div>
 				</div>
