@@ -1,6 +1,5 @@
 .mapTile {
 	transition-property: left, top;
-
 }
 
 @keyframes wobble {

@@ -64,6 +64,83 @@ function start()
 	//context.putImageData(img,x*tilesize*scale,y*tilesize*scale);
 }
 
+var canvasId = 0;
+
+function load()
+{
+	
+	//todo: check if already loaded and ask before overwriting
+	
+	canvasId += 1;
+	
+    var div = document.createElement("div");
+	
+    div.className = "mapTile";
+	
+    div.innerHTML = "<canvas id='canvas" + canvasId + "' onmousedown='startDrag(event);'></canvas>";
+	
+    document.getElementById("mapSpace").appendChild(div);
+	
+	
+	
+	
+	var canvas = document.getElementById("canvas" + canvasId);
+	canvas.width = 128;
+	canvas.height = 128;
+	var context = canvas.getContext("2d");
+	
+	//ctx.fillStyle = "#FF0000";
+	
+	
+	
+	context.fillStyle = getRandomColor();
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	
+	context.fillStyle = getRandomColor();
+	context.fillRect(16, 16, 16, 16);
+	
+	context.fillStyle = getRandomColor();
+	
+	var i = 0;
+	var j = 0;
+	
+	for(i in testMap)
+	{
+		for (j in testMap[i])
+		{
+			if (testMap[i][j] == "a")
+			{
+				drawTile(testTile, j, i, context);
+			}
+		}
+	}
+	
+
+
+//function removeRow(input) {
+//    document.getElementById('content').removeChild( input.parentNode );
+/*
+var div = document.getElementById('xyz');
+if (div) {
+    div.parentNode.removeChild(div);
+}
+*/
+
+}
+
+//"#"+((1<<24)*Math.random()|0).toString(16)
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
+
+
 function drawTile(tile, x, y, context)
 {
 	var i = 0;
