@@ -7,7 +7,7 @@ function show(e)
 	
 	bringToTop(e)
 	
-	e.style.animation = "wobble 0.4s 1";
+	e.style.animation = "wobble 0.3s 1";
 	
 	var button = document.getElementById(e.id + "Button");
 	button.style.color = "#fff";
@@ -48,7 +48,8 @@ function bringToTop(item)
 // DRAGGING ELEMENTS
 
 var dragDialog = null;
-var dragOffset = {x:0, y:0};
+var dragMouseLast = {x:0, y:0};
+var dragPosition = {x:0, y:0};
 
 document.addEventListener("mousemove", moveDrag);
 document.addEventListener("mouseup", endDrag);
@@ -66,12 +67,16 @@ function startDrag(e)
 	
 	dragDialog.style.cursor = "move";
 	
-	var pos = dragDialog.getBoundingClientRect();
+	dragDialog.style.transitionDuration = "0.0s";
 	
-	dragOffset.x = e.clientX - pos.left;
-	dragOffset.y = e.clientY - pos.top;
+	dragPosition.x = dragDialog.offsetLeft;
+	dragPosition.y = dragDialog.offsetTop;
+	
+	dragMouseLast.x = e.screenX;
+	dragMouseLast.y = e.screenY;
 	
 	bringToTop(dragDialog);
+	
 }
 
 
@@ -80,8 +85,14 @@ function moveDrag(e)
 	if (dragDialog == null) return;
 	
 	
-	dragDialog.style.left = e.clientX - dragOffset.x + "px";
-	dragDialog.style.top = e.clientY - dragOffset.y + "px";
+	dragPosition.x += e.screenX - dragMouseLast.x;
+	dragPosition.y += e.screenY - dragMouseLast.y;
+	
+	dragDialog.style.left = dragPosition.x + "px";
+	dragDialog.style.top = dragPosition.y + "px";
+	
+	dragMouseLast.x = e.screenX;
+	dragMouseLast.y = e.screenY;
 }
 
 
@@ -92,25 +103,31 @@ function endDrag(e)
 	
 	dragDialog.style.cursor = "default";
 	
-	var pos = dragDialog.getBoundingClientRect();
+	dragDialog.style.transitionDuration = "0.2s";
 	
-	var appWindow = document.getElementById("appWindow").getBoundingClientRect();
-	
-	if (pos.left < 0) dragDialog.style.left = "0px";
-	if (pos.top < 0)  dragDialog.style.top = "0px";
-	if (pos.right > appWindow.right) dragDialog.style.left = appWindow.right - pos.right + pos.left + "px";
-	if (pos.bottom > appWindow.bottom)  dragDialog.style.top = appWindow.bottom - pos.bottom + pos.top + "px";
-	
-	//dragDialog.style.animation = "wobble 0.4s 1";
-	
-	if (dragDialog.className == "mapTile")
+	if (dragDialog.className == "mapTile") //dragging map tile
 	{
-		dragDialog.style.left = Math.round(pos.left / 129) * 129 + "px";
-		dragDialog.style.top = Math.round(pos.top / 129) * 129 + "px";
+		console.log(dragPosition.y);
 		
-		dragDialog.style.zIndex = Math.round(pos.top / 129);
+		if (dragPosition.x <= 0) dragPosition.x = 0;
+		if (dragPosition.y <= 0)  dragPosition.y = 0;
 		
-		dragDialog.style.position = "relative";
+		dragDialog.style.left = Math.round(dragPosition.x / 131) * 131 + "px";
+		dragDialog.style.top = Math.round(dragPosition.y / 131) * 131 + "px";
+		
+		dragDialog.style.zIndex = Math.round(dragPosition.y / 131);
+	}
+	else //dragging dialog window
+	{
+		
+		var windowBox = document.getElementById("appWindow").getBoundingClientRect();
+		var dialogBox = dragDialog.getBoundingClientRect();
+		
+		//check if in browser window
+		if (dialogBox.left <= 0) dragDialog.style.left = "0px";
+		if (dialogBox.top <= 0)  dragDialog.style.top = "0px";
+		if (dialogBox.right > windowBox.right) dragDialog.style.left = windowBox.right - dialogBox.right + dialogBox.left + "px";
+		if (dialogBox.bottom > windowBox.bottom)  dragDialog.style.top = windowBox.bottom - dialogBox.bottom + dialogBox.top + "px";
 	}
 
 	dragDialog = null;
