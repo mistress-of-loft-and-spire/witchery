@@ -1,3 +1,20 @@
+
+@font-face {
+    font-family: nunwoff;
+    src: url("../fnt/nunito-v9-latin-regular.woff2") format('woff2');
+	src: url("../fnt/nunito-v9-latin-regular.woff") format('woff');
+	font-style: normal;
+	font-weight: normal;
+}
+
+@font-face {
+    font-family: nunwoff;
+    src: url("../fnt/nunito-v9-latin-800.woff2") format('woff2');
+	src: url("../fnt/nunito-v9-latin-800.woff") format('woff');
+	font-style: normal;
+	font-weight: 800;
+}
+
 html{
 	height: 100%;
 }
@@ -23,7 +40,7 @@ body {
 	color: #7664a0;
 	
 	font-size: 16px;
-	font-family: "Helvetica", "Arial", sans;
+	font-family: "nunwoff", "Helvetica", "Arial", sans;
 	line-height: 170%;
 }
 
@@ -37,13 +54,11 @@ body {
 
 #toolPanel {
 	background: #fff;
-	border-bottom: solid 4px #332349;
+	border-bottom: solid 4px #251e30;
 	
 	width: 100%;
 	
-	padding: 15px;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding: 14px 20px;
 	
 	font-size: 20px;
 	
@@ -56,7 +71,7 @@ body {
 	border-bottom: none;
 	margin-bottom: 0px;
 	
-	font-size: 20px;
+	font-size: 18px;
 }
 
 #toolPanel button:hover {
@@ -64,12 +79,12 @@ body {
 }
 
 #toolPanel button:active {
-	background: #413359;
+	background: #2f283c;
 }
 
 #mainPanel {
-	background: #413359;
-	background-image: url("../img/background-title.png"), url("../img/background-grid.png");
+	background: #2f283c;
+	background-image: url("../img/background-cat.png"), url("../img/background-grid.png");
 	background-position: center, left top;
 	background-repeat: no-repeat, repeat;
 	background-attachment: fixed, local;
@@ -97,8 +112,8 @@ body {
 }
 
 canvas {
-	background: #332349;
-	box-shadow: 0 4px 0 0 #332349;
+	background: #251e30;
+	box-shadow: 0 4px 0 0 #251e30;
 	
 	border-radius: 4px;
 	
@@ -112,7 +127,7 @@ canvas {
 
 .dialog {
 	background: #fff;
-	box-shadow: 0 4px 0 0 #332349;
+	box-shadow: 0 4px 0 0 #251e30;
 	
 	border-radius: 4px;
 	
@@ -132,15 +147,13 @@ canvas {
 	
 	border-radius: 4px 4px 0px 0px;
 	
-	padding: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding: 10px 14px;
 
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .dialog .content {
-	padding: 15px;
+	padding: 14px;
 	padding-bottom: 0px;
 	
 	white-space: normal;
@@ -150,7 +163,7 @@ canvas {
 
 .button, button, textarea, p {
 	margin: 0px;
-	margin-bottom: 15px;
+	margin-bottom: 14px;
 	
 	display: block;
 }
@@ -164,9 +177,7 @@ canvas {
 	
 	display: inline-block;
 	
-	padding: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding: 8px 15px 7px 15px;
 	
 	margin-right: 10px;
 	
@@ -180,10 +191,10 @@ canvas {
 }
 
 .button:active, button:active {
-	background: #413359;
+	background: #2f283c;
 	color: #fff;
 	
-	border-bottom: solid 2px #413359;
+	border-bottom: solid 2px #2f283c;
 }
 
 button.close {
@@ -201,5 +212,5 @@ button.close {
 }
 
 textarea {
-	font-size: 14px;
+	font-size: 13px;
 }

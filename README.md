@@ -1,5 +1,7 @@
 # overworld witchery
-✨bitsy overworld witchery✨ is a tiny tool for building connected bitsy maps
+a small tool for building connected [bitsy](https://ledoux.itch.io/bitsy) maps
+
+![](https://voec.github.io/witchery/img/cat.gif)
 
 [https://voec.github.io/witchery/](https://voec.github.io/witchery/)
 

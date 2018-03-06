@@ -1,5 +1,5 @@
 
-var version = "0.3 BETA";
+var version = "0.4 BETA";
 
 var canvas;
 var palette = {	0 : [[0,82,204],[128,159,255],[255,255,255]] };// default palette
