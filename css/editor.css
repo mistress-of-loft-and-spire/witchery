@@ -44,6 +44,15 @@ body {
 	line-height: 170%;
 }
 
+a {
+	color: #58f898;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #e40058;
+}
+
 #appWindow {
 	display: flex;
 	flex-flow: column;
@@ -80,6 +89,14 @@ body {
 
 #toolPanel button:active {
 	background: #2f283c;
+}
+
+.description {
+	float: right;
+	
+	margin: 4px;
+	
+	font-size: 14px;
 }
 
 #mainPanel {
@@ -124,6 +141,9 @@ canvas {
 }
 
 
+.content {
+	
+}
 
 .dialog {
 	background: #fff;
