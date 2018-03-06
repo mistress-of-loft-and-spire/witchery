@@ -165,3 +165,8 @@ function setColor(paletteNumber, colorNumber, context)
 {
 	context.fillStyle = "rgb(" + palette[paletteNumber][colorNumber][0] + "," + palette[paletteNumber][colorNumber][1] + "," + palette[paletteNumber][colorNumber][2] + ")";
 }
+
+function getTitle(data)
+{
+	
+}

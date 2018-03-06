@@ -54,11 +54,18 @@ var dragPosition = {x:0, y:0};
 document.addEventListener("mousemove", moveDrag);
 document.addEventListener("mouseup", endDrag);
 
+//document.addEventListener('touchstart', startDrag, false);   touch drag, doesn't work?
+
+document.addEventListener('touchmove', moveDrag);
+document.addEventListener('touchend', endDrag);
+
 var topZ = 10000;
 
 
 function startDrag(e)
 {
+	//window.alert("sometext");
+	
 	if (dragDialog != null) return;
 	
 	if (e.target.className == "close") return; //exception for title bar close button

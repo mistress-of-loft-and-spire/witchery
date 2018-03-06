@@ -80,7 +80,7 @@ a:hover {
 	border-bottom: none;
 	margin-bottom: 0px;
 	
-	font-size: 18px;
+	font-size: 16px;
 }
 
 #toolPanel button:hover {
@@ -93,11 +93,11 @@ a:hover {
 
 .description {
 	float: right;
-	
-	margin: 4px;
+	margin: 2px 6px;
 	
 	font-size: 14px;
 }
+
 
 #mainPanel {
 	background: #2f283c;
@@ -151,7 +151,7 @@ canvas {
 	
 	border-radius: 4px;
 	
-	top: 100px;
+	top: 80px;
 	left: 30px;
 	
 	display: block;
@@ -177,6 +177,8 @@ canvas {
 	padding-bottom: 0px;
 	
 	white-space: normal;
+	
+	font-size: 14px;
 }
 
 
@@ -202,7 +204,8 @@ canvas {
 	margin-right: 10px;
 	
 	color: #7664a0;
-	font-size: 18px;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .button:hover, button:hover,
@@ -233,4 +236,5 @@ button.close {
 
 textarea {
 	font-size: 13px;
+	font-family: monospace;
 }
