@@ -11,7 +11,7 @@
 }
 
 canvas {
-	transition: 1s wobble;
+	transition: 1s;
 }
 
 .mapTile {

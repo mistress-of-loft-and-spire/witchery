@@ -19,10 +19,10 @@ function start()
 	go("canvasa");
 	go("canvasb");
 	go("canvasc");
-	go("canvasx");
-	go("canvasxa");
-	go("canvasxb");
-	go("canvasxc");
+	
+	load();
+	
+	//document.getElementById("title").innerHTML = getTitle(document.getElementById("datafield").value);
 }
 
 function go(myname)
@@ -78,11 +78,47 @@ function go(myname)
 
 var canvasId = 0;
 
+var gameBitsyVersion; // might be useful later on
+var gameRoomFormat; // might be useful later on
+
+var gameTitle;
+
+
 function load()
 {
 	
-	//todo: check if already loaded and ask before overwriting
+	if(gameTitle)
+	{
+		//TODO: check if already loaded and ask before overwriting
+		//break
+	}
 	
+	var rawData = document.getElementById("datafield").value;
+	
+	//get BITSY VERSION and ROOM_FORMAT flags with regex
+	var gameBitsyVersion = /# BITSY VERSION (.*)/.exec(rawData)[1];
+	var gameRoomFormat = /! ROOM_FORMAT (.*)/.exec(rawData)[1];
+	
+	
+	var dataArray = rawData.split('\n\n');
+	
+	console.log(dataArray);
+	
+	//get GAME TITLE
+	gameTitle = dataArray[0];
+	document.getElementById("title").innerHTML = gameTitle;
+	
+	
+	
+	var i = 0;
+	
+	for (i in dataArray)
+	{
+		
+		//if(arr) console.log(arr);
+	}
+	
+/*	
 	canvasId += 1;
 	
     var div = document.createElement("div");
@@ -129,7 +165,7 @@ function load()
 		}
 	}
 	
-
+*/
 
 //function removeRow(input) {
 //    document.getElementById('content').removeChild( input.parentNode );
@@ -183,4 +219,6 @@ function setColor(paletteNumber, colorNumber, context)
 function getTitle(data)
 {
 	
+	
+	return data
 }
