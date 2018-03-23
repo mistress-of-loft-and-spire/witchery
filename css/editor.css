@@ -91,7 +91,7 @@ a:hover {
 	background: #2f283c;
 }
 
-.description {
+#title {
 	float: right;
 	margin: 2px 6px;
 	
@@ -100,21 +100,34 @@ a:hover {
 
 
 #mainPanel {
-	background: #2f283c;
-	background-image: url("../img/background-cat.png"), url("../img/background-grid.png");
-	background-position: center, left top;
-	background-repeat: no-repeat, repeat;
-	background-attachment: fixed, local;
+	
 	
 	width: 100%;
 	
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	
 	overflow: scroll;
+}
+
+#listPanel {
+	background: #251e30;
+	
+	width: 100%;
+	
+	padding: 0px 0px;
+	
+	font-size: 20px;
+	
+	display: table;
+	overflow-x: scroll;
 	
 	box-sizing: border-box;
 	flex: 1 1 auto;
+	
+	height:100px;
+
 }
-
-
 
 #mapSpace {
 	position: relative;
@@ -122,11 +135,21 @@ a:hover {
 	min-height: 2000px;
 	left: 0px;
 	top: 0px;
+	
+	background: #2f283c;
+	background-image: url("../img/background-cat.png"), url("../img/background-grid.png");
+	background-position: center, left top;
+	background-repeat: no-repeat, repeat;
+	background-attachment: fixed, local;
 }
+
+
 
 .mapTile {
 	position: relative;
 }
+
+.abs { position: absolute !important; }
 
 canvas {
 	background: #251e30;
@@ -138,7 +161,33 @@ canvas {
 	height: 128px;
 	
 	position: absolute;
+	
+	image-rendering: pixelated;
+	cursor: move;
 }
+
+
+#listPanel .mapTile {
+	display: inline-block;
+	
+	transition: 1s;
+}
+
+#listPanel .mapTile canvas {
+	
+	vertical-align: middle;
+	
+	transition: 1s;
+}
+
+#listPanel .mapTile.settled canvas {
+	/*position: relative;*/
+	
+	width: 64px;
+	height: 64px;
+}
+	
+
 
 
 .content {

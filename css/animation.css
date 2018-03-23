@@ -2,9 +2,18 @@
 	transition-property: left, top;
 }
 
+
 @keyframes wobble {
 	0%	 { transform: scale(0.97, 0.92); }
 	25%	 { transform: scale(1.03, 1.06); }
 	60%	 { transform: scale(0.97, 0.95); }
 	100% { transform: scale(1.0,  1.0); }
+}
+
+canvas {
+	transition: 1s wobble;
+}
+
+.mapTile {
+	transition: 1s;
 }

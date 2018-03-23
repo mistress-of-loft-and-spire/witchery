@@ -62,6 +62,34 @@ document.addEventListener('touchend', endDrag);
 var topZ = 10000;
 
 
+
+function listDrag(e)
+{
+	
+	if (dragDialog != null) return;
+	
+	e.target.style.opacity = 0.5;
+	
+	dragDialog = document.getElementById("canvasa").parentElement;
+	
+	dragDialog.style.cursor = "move";
+	
+	dragDialog.style.transitionDuration = "0.0s";
+	
+	dragDialog.style.left = e.screenX + "px";
+	dragDialog.style.top  = 0 + "px";
+	
+	dragPosition.x = dragDialog.offsetLeft;
+	dragPosition.y = dragDialog.offsetTop;
+	
+	dragMouseLast.x = e.screenX;
+	dragMouseLast.y = e.screenY;
+	
+	bringToTop(dragDialog);
+	
+}
+
+
 function startDrag(e)
 {
 	//window.alert("sometext");
@@ -71,6 +99,10 @@ function startDrag(e)
 	if (e.target.className == "close") return; //exception for title bar close button
 	
 	dragDialog = e.target.parentElement;
+	
+	//document.getElementById("listPanel").appendChild(dragDialog);
+	
+	if (dragDialog.className == "mapTile settled") dragDialog.className = "mapTile";
 	
 	dragDialog.style.cursor = "move";
 	
@@ -100,6 +132,32 @@ function moveDrag(e)
 	
 	dragMouseLast.x = e.screenX;
 	dragMouseLast.y = e.screenY;
+	
+	
+	
+	
+	if(dragPosition.y - document.getElementById("mainPanel").scrollTop < 0)
+	{
+		
+		console.log(e.pageY + "    " + dragDialog.parentElement.id);
+		
+		if(dragDialog.parentElement.id != "listPanel")
+		{
+
+			document.getElementById("listPanel").appendChild(dragDialog);
+			
+			//dragDialog.style.animation = "wobble 0.3s 1";
+			
+		}
+		
+		//dragDialog.style.left = "0px";
+		//dragDialog.style.top = "0px";
+	}
+	else
+	{
+		document.getElementById("mapSpace").appendChild(dragDialog);
+	}
+	
 }
 
 
@@ -115,6 +173,13 @@ function endDrag(e)
 	if (dragDialog.className == "mapTile") //dragging map tile
 	{
 		console.log(dragPosition.y);
+		
+		if(dragDialog.parentElement.id == "listPanel")
+		{
+			dragDialog.className = "mapTile settled";
+		}
+		
+		
 		
 		if (dragPosition.x <= 0) dragPosition.x = 0;
 		if (dragPosition.y <= 0)  dragPosition.y = 0;

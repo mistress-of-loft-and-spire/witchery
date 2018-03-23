@@ -14,6 +14,11 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 * save room layout in bitsy data?
 * touch drag
 
+## bugs
+
+* buttons can be pressed by dragging a left click on them?
+* scolling while dragging room tile -> offset
+
 ## contributing
 
 please feel free to [report any issues or make a suggestion](https://github.com/voec/witchery/issues).
