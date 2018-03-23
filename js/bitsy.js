@@ -2,7 +2,6 @@
 var version = "0.4 BETA";
 
 var canvas;
-var palette = {	0 : [[0,82,204],[128,159,255],[255,255,255]] };// default palette
 
 
 var testTile = [[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,0,1,1,1,1,0,1],[0,0,1,0,0,1,0,0],[0,0,1,0,0,1,0,0]];
@@ -15,17 +14,19 @@ var scale = 1;
 
 function start()
 {
-	go("canvas");
-	go("canvasa");
-	go("canvasb");
-	go("canvasc");
-	
 	load();
+	
+	go("canvas","6");
+	go("canvasa","1");
+	go("canvasb","2");
+	go("canvasc","3");
+	go("canvasd","4");
+	go("canvase","5");
 	
 	//document.getElementById("title").innerHTML = getTitle(document.getElementById("datafield").value);
 }
 
-function go(myname)
+function go(myname, nopee)
 {
 	var canvas = document.getElementById(myname);
 	canvas.width = 128;
@@ -36,22 +37,27 @@ function go(myname)
 	
 	//console.log(palette[0][1][0]);
 	
-	setColor(0, 0, ctx);
+	setColor(gameRooms[nopee][1], 0, ctx);
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
-	setColor(0, 1, ctx);
+	var i = 0; var j = 0;
 	
-	var i = 0;
-	var j = 0;
-	
-	for(i in testMap)
+	for(i in gameRooms[nopee][0])
 	{
-		for (j in testMap[i])
+		for (j in gameRooms[nopee][0][i])
 		{
-			if (testMap[i][j] == "a")
+			if (gameRooms[nopee][0][i][j] != "0")
 			{
-				drawTile(testTile, j, i, ctx);
+				draw("tile", gameRooms[nopee][0][i][j], j, i, gameRooms[nopee][1], ctx);
 			}
+		}
+	}
+	
+	for(i in gameSprites)
+	{
+		if (gameSprites[i][1] == nopee)
+		{
+			draw("sprite", i, gameSprites[i][2][0], gameSprites[i][2][1], gameRooms[nopee][1], ctx);
 		}
 	}
 	
@@ -78,11 +84,16 @@ function go(myname)
 
 var canvasId = 0;
 
-var gameBitsyVersion; // might be useful later on
-var gameRoomFormat; // might be useful later on
+var gameBitsyVersion; //might be useful later on
+var gameRoomFormat; //might be useful later on
 
 var gameTitle;
 
+// initialize game palettes object with default value
+var gamePalettes = { default : [[0,82,204],[128,159,255],[255,255,255]] };
+var gameRooms = {};
+var gameTiles = {};
+var gameSprites = {};
 
 function load()
 {
@@ -109,14 +120,101 @@ function load()
 	document.getElementById("title").innerHTML = gameTitle;
 	
 	
+	var paletteRegex = /PAL (.+)\n(?:NAME.*\n)?(.+),(.+),(.+)\n(.+),(.+),(.+)\n(.+),(.+),(.+)/;
+	var roomRegex = /ROOM (.+)\n((?:(?:.+(?:,.+){15})(?:|\n)){16})(?:.|\n)*PAL (.+)/;
+	var tileRegex = /TIL (.+)\n((?:\d{8}(?:|\n)){8})/;
+	var spriteRegex = /SPR (.+)\n((?:\d{8}(?:|\n)){8})(?:.|\n)*POS (.*) (.*),(.*)/;
 	
-	var i = 0;
+	var i = 0; var j = 0; var k = 0;
 	
 	for (i in dataArray)
 	{
+		if(tileRegex.exec(dataArray[i])) //get TILES via regex
+		{
+			
+			var output = tileRegex.exec(dataArray[i])
+			
+			var arrayRows = output[2].split("\n");
+			var tileArray = [];
+			
+			for (j in arrayRows)
+			{
+				tileArray[j] = [];
+				
+				for (k = 0; k < arrayRows[j].length; k++)
+				{
+					tileArray[j][k] = arrayRows[j].charAt(k);
+				}
+			}
+			
+			gameTiles[output[1]] = tileArray;
+			//{ id : [[0,0,0,1,0,1,1,0], [], [], ... ]] }
+			
+		}
+		else if(roomRegex.exec(dataArray[i])) //get ROOMS via regex
+		{
+			
+			var output = roomRegex.exec(dataArray[i]);
+			
+			var arrayRows = output[2].split("\n");
+			var roomArray = [];
+			
+			for (j in arrayRows)
+			{
+				roomArray[j] = arrayRows[j].split(",");
+			}
+			
+			gameRooms[output[1]] = [roomArray, output[3]];
+			//{ id : [[ [0,0,a,a,a...], [], [], ... ], [palette id]] }
+			
+		}
+		else if(paletteRegex.exec(dataArray[i])) //get PALETTES via regex
+		{
+			
+			var output = paletteRegex.exec(dataArray[i]);
+			
+			gamePalettes[output[1]] = [[output[2],output[3],output[4]],[output[5],output[6],output[7]],[output[8],output[9],output[10]]];
+			//{ id : [[r,g,b], [r,g,b], [r,g,b]] }
+			
+		}
+		else if(spriteRegex.exec(dataArray[i])) //get SPRITES via regex
+		{
+			
+			var output = spriteRegex.exec(dataArray[i]);
+			
+			var arrayRows = output[2].split("\n");
+			var spriteArray = [];
+			
+			for (j in arrayRows)
+			{
+				spriteArray[j] = [];
+				
+				for (k = 0; k < arrayRows[j].length; k++)
+				{
+					spriteArray[j][k] = arrayRows[j].charAt(k);
+				}
+			}
+			console.log(output[1]);
+			gameSprites[output[1]] = [spriteArray, output[3], [output[4], output[5]]];
+			//{ id : [[[0,0,0,1,0,1,1,0], [], [], ... ], map id, [x, y]] }
+			
+		}
 		
-		//if(arr) console.log(arr);
 	}
+	
+	
+	
+	
+	
+	
+	console.log("--------------------");
+	
+	//console.log(gameTiles["a"]);
+	
+	
+
+	
+	//console.log("rgb(" + palette[paletteName][colorNumber][0] + "," + palette[paletteName][colorNumber][1] + "," + palette[paletteName][colorNumber][2] + ")");
 	
 /*	
 	canvasId += 1;
@@ -191,34 +289,42 @@ function getRandomColor() {
 
 
 
-function drawTile(tile, x, y, context)
+function draw(type, id, x, y, palette, context)
 {
-	var i = 0;
-	var j = 0;
+	
+	if(type != "sprite" && type != "tile") return;
 	
 	x = x * 8 * scale;
 	y = y * 8 * scale;
 	
-	for(i in tile)
+	if(type == "tile")
 	{
-		for (j in tile[i])
+		var drawData = gameTiles[id]
+		setColor(palette, 1, context);
+	}
+	else
+	{
+		var drawData = gameSprites[id][0]
+		setColor(palette, 2, context);
+	}
+	
+	var i = 0; var j = 0;
+	
+	for(i in drawData)
+	{
+		for (j in drawData[i])
 		{
-			if (tile[i][j] == "1")
+			if (drawData[i][j] == "1")
 			{
 				context.fillRect(x + (j * scale), y + (i * scale), scale, scale);
 			}
 		}
 	}
+	
 }
 
-function setColor(paletteNumber, colorNumber, context)
+function setColor(paletteName, colorNumber, context)
 {
-	context.fillStyle = "rgb(" + palette[paletteNumber][colorNumber][0] + "," + palette[paletteNumber][colorNumber][1] + "," + palette[paletteNumber][colorNumber][2] + ")";
+	context.fillStyle = "rgb(" + gamePalettes[paletteName][colorNumber][0] + "," + gamePalettes[paletteName][colorNumber][1] + "," + gamePalettes[paletteName][colorNumber][2] + ")";
 }
 
-function getTitle(data)
-{
-	
-	
-	return data
-}
