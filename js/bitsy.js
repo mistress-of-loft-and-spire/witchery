@@ -1,34 +1,24 @@
 
-var version = "0.4 BETA";
+var version = "0.5 BETA";
 
-var canvas;
-
-
-var testTile = [[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,0,1,1,1,1,0,1],[0,0,1,0,0,1,0,0],[0,0,1,0,0,1,0,0]];
-
-var testMap = [["a","a","a","a",0,0,"a",0,0,0,"a",0,0,0,0,0],[0,"a","a","a","a","a","a","a","a","a","a","a","a","a","a",0],[0,"a",0,0,0,0,0,0,0,0,0,0,0,0,"a",0],[0,"a",0,0,0,0,0,0,"a",0,0,0,0,0,"a",0],[0,"a",0,0,0,0,"a","a","a",0,0,0,0,0,"a",0],[0,"a",0,0,0,0,"a",0,0,0,0,0,0,0,"a",0],[0,"a",0,0,0,"a","a",0,0,0,0,0,0,0,"a",0],[0,"a","a",0,"a",0,0,0,0,0,0,0,0,0,"a",0],[0,"a",0,0,0,0,0,0,0,0,0,0,0,0,"a",0],[0,"a",0,"a",0,0,0,0,0,0,0,0,0,0,"a",0],[0,"a",0,"a",0,0,0,0,0,0,0,0,0,0,"a",0],[0,"a",0,"a",0,0,0,0,0,0,0,0,0,0,"a",0],[0,"a",0,0,0,0,0,0,0,0,0,0,0,0,"a",0],[0,"a",0,0,0,0,0,0,0,0,0,0,0,0,"a",0],[0,"a","a","a","a","a","a","a","a","a","a","a","a","a","a",0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
-
-var scale = 1;
-
-// palette[ id ].colors;
 
 function start()
 {
 	load();
 	
-	go("canvas","6");
-	go("canvasa","1");
-	go("canvasb","2");
-	go("canvasc","3");
-	go("canvasd","4");
-	go("canvase","5");
-	
 	//document.getElementById("title").innerHTML = getTitle(document.getElementById("datafield").value);
 }
 
-function go(myname, nopee)
+function addCanvas(id)
 {
-	var canvas = document.getElementById(myname);
+	
+	var canvasContainer = document.createElement("div");
+    canvasContainer.setAttribute("class", "mapTile");
+    canvasContainer.innerHTML = "<canvas id='canvas-" + id + "' onmousedown='startDrag(event);'></canvas>";
+	
+	document.getElementById("mapSpace").appendChild(canvasContainer);
+	
+	var canvas = document.getElementById("canvas-" + id);
 	canvas.width = 128;
 	canvas.height = 128;
 	var ctx = canvas.getContext("2d");
@@ -37,52 +27,31 @@ function go(myname, nopee)
 	
 	//console.log(palette[0][1][0]);
 	
-	setColor(gameRooms[nopee][1], 0, ctx);
+	setColor(gameRooms[id][1], 0, ctx);
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
 	var i = 0; var j = 0;
 	
-	for(i in gameRooms[nopee][0])
+	for(i in gameRooms[id][0])
 	{
-		for (j in gameRooms[nopee][0][i])
+		for (j in gameRooms[id][0][i])
 		{
-			if (gameRooms[nopee][0][i][j] != "0")
+			if (gameRooms[id][0][i][j] != "0")
 			{
-				draw("tile", gameRooms[nopee][0][i][j], j, i, gameRooms[nopee][1], ctx);
+				draw("tile", gameRooms[id][0][i][j], j, i, gameRooms[id][1], ctx);
 			}
 		}
 	}
 	
 	for(i in gameSprites)
 	{
-		if (gameSprites[i][1] == nopee)
+		if (gameSprites[i][1] == id)
 		{
-			draw("sprite", i, gameSprites[i][2][0], gameSprites[i][2][1], gameRooms[nopee][1], ctx);
+			draw("sprite", i, gameSprites[i][2][0], gameSprites[i][2][1], gameRooms[id][1], ctx);
 		}
 	}
 	
-	/*
-	for (i in room.tilemap) {
-		for (j in room.tilemap[i]) {
-			var id = room.tilemap[i][j];
-			if (id != "0") {
-				//console.log(id);
-				if (tile[id] == null) { // hack-around to avoid corrupting files (not a solution though!)
-					id = "0";
-					room.tilemap[i][j] = id;
-				}
-				else {
-					// console.log(id);
-					drawTile( getTileImage(tile[id],getRoomPal(room.id)), j, i, context );
-				}
-			}
-		}
-	}*/
-	
-	//context.putImageData(img,x*tilesize*scale,y*tilesize*scale);
 }
-
-var canvasId = 0;
 
 var gameBitsyVersion; //might be useful later on
 var gameRoomFormat; //might be useful later on
@@ -98,9 +67,38 @@ var gameSprites = {};
 function load()
 {
 	
+	var i = 0;
+	
+	for(i in gameRooms)
+	{
+		var canvasRemove = document.getElementById("canvas-" + i);
+		canvasRemove.parentElement.remove();
+	}
+	
+	gameTitle = null;
+	
+	gameRooms = {};
+	gameTiles = {};
+	gameSprites = {};
+	gamePalettes = { default : [[0,82,204],[128,159,255],[255,255,255]] };
+	
+	parse();
+	
+	var i = 0;
+	
+	for(i in gameRooms)
+	{
+		addCanvas(i);
+	}
+	
+}
+	
+function parse()
+{	
+	
 	if(gameTitle)
 	{
-		//TODO: check if already loaded and ask before overwriting
+		//TODO: check if already loaded and ask before overwriting?
 		//break
 	}
 	
@@ -202,79 +200,10 @@ function load()
 		
 	}
 	
-	
-	
-	
-	
-	
-	console.log("--------------------");
-	
-	//console.log(gameTiles["a"]);
-	
-	
-
-	
-	//console.log("rgb(" + palette[paletteName][colorNumber][0] + "," + palette[paletteName][colorNumber][1] + "," + palette[paletteName][colorNumber][2] + ")");
-	
-/*	
-	canvasId += 1;
-	
-    var div = document.createElement("div");
-	
-    div.className = "mapTile";
-	
-    div.innerHTML = "<canvas id='canvas" + canvasId + "' onmousedown='startDrag(event);'></canvas>";
-	
-    document.getElementById("mapSpace").appendChild(div);
-	
-	
-	
-	
-	var canvas = document.getElementById("canvas" + canvasId);
-	canvas.width = 128;
-	canvas.height = 128;
-	var context = canvas.getContext("2d");
-	
-	//ctx.fillStyle = "#FF0000";
-	
-	
-	
-	context.fillStyle = getRandomColor();
-	context.fillRect(0, 0, canvas.width, canvas.height);
-	
-	context.fillStyle = getRandomColor();
-	context.fillRect(16, 16, 16, 16);
-	
-	context.fillStyle = getRandomColor();
-	
-	
-	
-	var i = 0;
-	var j = 0;
-	
-	for(i in testMap)
-	{
-		for (j in testMap[i])
-		{
-			if (testMap[i][j] == "a")
-			{
-				drawTile(testTile, j, i, context);
-			}
-		}
-	}
-	
-*/
-
-//function removeRow(input) {
-//    document.getElementById('content').removeChild( input.parentNode );
-/*
-var div = document.getElementById('xyz');
-if (div) {
-    div.parentNode.removeChild(div);
 }
-*/
 
-}
+
+
 
 //"#"+((1<<24)*Math.random()|0).toString(16)
 function getRandomColor() {
@@ -288,6 +217,9 @@ function getRandomColor() {
 
 
 
+// DRAWING FUNCTIONS
+
+var scale = 1;
 
 function draw(type, id, x, y, palette, context)
 {

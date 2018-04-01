@@ -8,7 +8,6 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 
 ## todo
 
-* bitsy data import
 * how to lay out the rooms for selection?
 * export
 * save room layout in bitsy data?
@@ -18,6 +17,7 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 
 * buttons can be pressed by dragging a left click on them?
 * scolling while dragging room tile -> offset
+* ups, i forgot items
 
 ## contributing
 
