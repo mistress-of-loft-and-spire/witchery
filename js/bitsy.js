@@ -1,12 +1,33 @@
 
-var version = "0.6 BETA";
 
 
-function start()
+function load()
 {
-	load();
 	
-	//document.getElementById("title").innerHTML = getTitle(document.getElementById("datafield").value);
+	var i = 0;
+	
+	for(i in gameRooms)
+	{
+		var canvasRemove = document.getElementById("canvas-" + i);
+		canvasRemove.parentElement.remove();
+	}
+	
+	gameTitle = null;
+	
+	gameRooms = {};
+	gameTiles = {};
+	gameSprites = {};
+	gamePalettes = { default : [[0,82,204],[128,159,255],[255,255,255]] };
+	
+	parse();
+	
+	var i = 0;
+	
+	for(i in gameRooms)
+	{
+		addCanvas(i);
+	}
+	
 }
 
 function addCanvas(id)
@@ -20,10 +41,10 @@ function addCanvas(id)
 	// check if imported layout data is available for this room
 	if (roomLayout && id in roomLayout)
 	{
-		canvasContainer.style.left = roomLayout[id][1] * 131 + "px";
-		canvasContainer.style.top = roomLayout[id][2] * 131 + "px";
+		canvasContainer.style.left = roomLayout[id][0] * 131 + "px";
+		canvasContainer.style.top = roomLayout[id][1] * 131 + "px";
 		
-		console.log(id + " " + roomLayout[id]);
+		console.log(roomLayout);
 	}
 	
 	document.getElementById("mapSpace").appendChild(canvasContainer);
@@ -59,50 +80,6 @@ function addCanvas(id)
 	}
 	
 }
-
-// some metadata, unused for now
-var gameBitsyVersion;
-var gameRoomFormat;
-var gameWitcheryVersion;
-
-
-var gameTitle;
-
-var gamePalettes = {}; // default : [[0,82,204],[128,159,255],[255,255,255]]
-var gameRooms = {};
-var gameTiles = {};
-var gameSprites = {};
-
-var roomLayout = {};
-
-function load()
-{
-	
-	var i = 0;
-	
-	for(i in gameRooms)
-	{
-		var canvasRemove = document.getElementById("canvas-" + i);
-		canvasRemove.parentElement.remove();
-	}
-	
-	gameTitle = null;
-	
-	gameRooms = {};
-	gameTiles = {};
-	gameSprites = {};
-	gamePalettes = { default : [[0,82,204],[128,159,255],[255,255,255]] };
-	
-	parse();
-	
-	var i = 0;
-	
-	for(i in gameRooms)
-	{
-		addCanvas(i);
-	}
-	
-}
 	
 // IMPORT RAW GAME DATA
 // uses regular expressions (regex) to parse raw bitsy game data to usable object arrays
@@ -115,13 +92,13 @@ function parse()
 		//break
 	}
 	
-	var rawData = document.getElementById("datafield").value;
+	rawData = document.getElementById("datafield").value;
 	
 	// get BITSY VERSION and ROOM_FORMAT flags with regex
 	gameBitsyVersion = /# BITSY VERSION (.*)/.exec(rawData)[1];
 	gameRoomFormat = /! ROOM_FORMAT (.*)/.exec(rawData)[1];
 	
-	// if present, get WITCHERY METADATA (used to remember room layouts when reimporting)
+	// if present, get WITCHERY METADATA
 	var metadataOutput = /! WITCHERY_METADATA\[(.*)\] (.*)/.exec(rawData);
 	
 	if(metadataOutput)
@@ -233,21 +210,6 @@ function parse()
 	}
 	
 }
-
-
-
-
-//"#"+((1<<24)*Math.random()|0).toString(16)
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
-
 
 // DRAWING FUNCTIONS
 
