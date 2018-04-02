@@ -12,9 +12,19 @@ function start()
 function addCanvas(id)
 {
 	
+	// add room canvas container to html with appropriate properties
 	var canvasContainer = document.createElement("div");
     canvasContainer.setAttribute("class", "mapTile");
     canvasContainer.innerHTML = "<canvas id='canvas-" + id + "' onmousedown='startDrag(event);'></canvas>";
+	
+	// check if imported layout data is available for this room
+	if (roomLayout && id in roomLayout)
+	{
+		canvasContainer.style.left = roomLayout[id][1] * 131 + "px";
+		canvasContainer.style.top = roomLayout[id][2] * 131 + "px";
+	}
+	
+	console.log(id + "  " +roomLayout);
 	
 	document.getElementById("mapSpace").appendChild(canvasContainer);
 	
@@ -23,9 +33,6 @@ function addCanvas(id)
 	canvas.height = 128;
 	var ctx = canvas.getContext("2d");
 	
-	//ctx.fillStyle = "#FF0000";
-	
-	//console.log(palette[0][1][0]);
 	
 	setColor(gameRooms[id][1], 0, ctx);
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -53,16 +60,20 @@ function addCanvas(id)
 	
 }
 
-var gameBitsyVersion; //might be useful later on
-var gameRoomFormat; //might be useful later on
+// some metadata, unused for now
+var gameBitsyVersion;
+var gameRoomFormat;
+var gameWitcheryVersion;
+
 
 var gameTitle;
 
-// initialize game palettes object with default value
-var gamePalettes = { default : [[0,82,204],[128,159,255],[255,255,255]] };
+var gamePalettes = {}; // default : [[0,82,204],[128,159,255],[255,255,255]]
 var gameRooms = {};
 var gameTiles = {};
 var gameSprites = {};
+
+var roomLayout = {};
 
 function load()
 {
@@ -93,6 +104,8 @@ function load()
 	
 }
 	
+// IMPORT RAW GAME DATA
+// uses regular expressions (regex) to parse raw bitsy game data to usable object arrays
 function parse()
 {	
 	
@@ -104,16 +117,34 @@ function parse()
 	
 	var rawData = document.getElementById("datafield").value;
 	
-	//get BITSY VERSION and ROOM_FORMAT flags with regex
-	var gameBitsyVersion = /# BITSY VERSION (.*)/.exec(rawData)[1];
-	var gameRoomFormat = /! ROOM_FORMAT (.*)/.exec(rawData)[1];
+	// get BITSY VERSION and ROOM_FORMAT flags with regex
+	gameBitsyVersion = /# BITSY VERSION (.*)/.exec(rawData)[1];
+	gameRoomFormat = /! ROOM_FORMAT (.*)/.exec(rawData)[1];
 	
+	// if present, get WITCHERY METADATA (used to remember room layouts when reimporting)
+	var metadataOutput = /! WITCHERY_METADATA\[(.*)\] (.*)/.exec(rawData);
+	
+	if(metadataOutput)
+	{
+		var arrayLayout = metadataOutput[1].split("][");
+		
+		var i = 0;
+		for (i in arrayLayout)
+		{
+			arrayLayout[i] = arrayLayout[i].split(",");
+			
+			roomLayout[arrayLayout[i][0]] = [arrayLayout[i][1],arrayLayout[i][2]];
+		}
+		
+		gameWitcheryVersion = metadataOutput[2];
+		
+		console.log(roomLayout);
+	}
 	
 	var dataArray = rawData.split('\n\n');
 	
-	console.log(dataArray);
 	
-	//get GAME TITLE
+	// get GAME TITLE
 	gameTitle = dataArray[0];
 	document.getElementById("title").innerHTML = gameTitle;
 	
