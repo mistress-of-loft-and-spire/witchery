@@ -1,5 +1,5 @@
 
-var version = "0.5 BETA";
+var version = "0.6 BETA";
 
 
 function start()
@@ -22,9 +22,9 @@ function addCanvas(id)
 	{
 		canvasContainer.style.left = roomLayout[id][1] * 131 + "px";
 		canvasContainer.style.top = roomLayout[id][2] * 131 + "px";
+		
+		console.log(id + " " + roomLayout[id]);
 	}
-	
-	console.log(id + "  " +roomLayout);
 	
 	document.getElementById("mapSpace").appendChild(canvasContainer);
 	
@@ -137,8 +137,6 @@ function parse()
 		}
 		
 		gameWitcheryVersion = metadataOutput[2];
-		
-		console.log(roomLayout);
 	}
 	
 	var dataArray = rawData.split('\n\n');
@@ -150,7 +148,7 @@ function parse()
 	
 	
 	var paletteRegex = /PAL (.+)\n(?:NAME.*\n)?(.+),(.+),(.+)\n(.+),(.+),(.+)\n(.+),(.+),(.+)/;
-	var roomRegex = /ROOM (.+)\n((?:(?:.+(?:,.+){15})(?:|\n)){16})(?:.|\n)*PAL (.+)/;
+	var roomRegex = /ROOM (.+)\n((?:(?:.+(?:,.+){15})(?:|\n)){16})(?:PAL (.+)|.|\n)*/;
 	var tileRegex = /TIL (.+)\n((?:\d{8}(?:|\n)){8})/;
 	var spriteRegex = /SPR (.+)\n((?:\d{8}(?:|\n)){8})(?:.|\n)*POS (.*) (.*),(.*)/;
 	
@@ -193,7 +191,10 @@ function parse()
 				roomArray[j] = arrayRows[j].split(",");
 			}
 			
-			gameRooms[output[1]] = [roomArray, output[3]];
+			var paletteOutput = output[3];
+			if (!paletteOutput) paletteOutput = 0;
+			
+			gameRooms[output[1]] = [roomArray, paletteOutput];
 			//{ id : [[ [0,0,a,a,a...], [], [], ... ], [palette id]] }
 			
 		}
@@ -223,7 +224,7 @@ function parse()
 					spriteArray[j][k] = arrayRows[j].charAt(k);
 				}
 			}
-			console.log(output[1]);
+			
 			gameSprites[output[1]] = [spriteArray, output[3], [output[4], output[5]]];
 			//{ id : [[[0,0,0,1,0,1,1,0], [], [], ... ], map id, [x, y]] }
 			
