@@ -1,6 +1,6 @@
 
 // witchery version
-var version = "0.6 BETA";
+var version = "0.7 BETA";
 
 
 // raw bitsy game data

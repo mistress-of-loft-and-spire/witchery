@@ -124,10 +124,10 @@ function parse()
 	document.getElementById("title").innerHTML = gameTitle;
 	
 	
-	var paletteRegex = /PAL (.+)\n(?:NAME.*\n)?(.+),(.+),(.+)\n(.+),(.+),(.+)\n(.+),(.+),(.+)/;
-	var roomRegex = /ROOM (.+)\n((?:(?:.+(?:,.+){15})(?:|\n)){16})(?:PAL (.+)|.|\n)*/;
+	var paletteRegex = /PAL (.+)\n(?:.|\n)*?(?:(.+),(.+),(.+)\n(.+),(.+),(.+)\n(.+),(.+),(.+))/;
+	var roomRegex = /ROOM (.+)\n(?:(?:\w|,){31}\n){16}(?:.|\n)*?(?:PAL (.+))/;
 	var tileRegex = /TIL (.+)\n((?:\d{8}(?:|\n)){8})/;
-	var spriteRegex = /SPR (.+)\n((?:\d{8}(?:|\n)){8})(?:.|\n)*POS (.*) (.*),(.*)/;
+	var spriteRegex = /SPR (.+)\n((?:\d{8}(?:|\n)){8})(?:.|\n)+?POS (.+) (.+),(.+)/;
 	
 	var i = 0; var j = 0; var k = 0;
 	
