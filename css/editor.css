@@ -53,6 +53,14 @@ a:hover {
 	color: #e40058;
 }
 
+.icon {
+	font-weight: normal;
+	text-transform: none;
+	font-size: 1.5em;
+	vertical-align: middle;
+	line-height: 0;
+}
+
 #appWindow {
 	display: flex;
 	flex-flow: column;
@@ -248,7 +256,7 @@ canvas {
 	
 	display: inline-block;
 	
-	padding: 8px 15px 7px 15px;
+	padding: 8px 12px 7px 12px;
 	
 	margin-right: 10px;
 	

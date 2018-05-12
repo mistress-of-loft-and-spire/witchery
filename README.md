@@ -12,6 +12,7 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 * export
 * save room layout in bitsy data?
 * touch drag
+* zoom
 
 ## known issues
 
