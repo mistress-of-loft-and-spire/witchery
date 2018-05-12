@@ -13,6 +13,7 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 * save room layout in bitsy data?
 * touch drag
 * zoom
+* swap overlapping room tiles
 
 * show exit connections somehow?
 

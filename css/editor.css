@@ -151,11 +151,7 @@ a:hover {
 
 
 
-.mapTile {
-	position: relative;
-}
-
-.abs { position: absolute !important; }
+/*.abs { position: absolute !important; }*/
 
 canvas {
 	background: #251e30;
@@ -173,24 +169,26 @@ canvas {
 	
 	image-rendering: pixelated;
 	cursor: move;
+	
+
 }
 
+
+.mapTile {
+	position: relative;
+	display: inline;
+	
+
+}
 
 mapTile.settled {
 	display: inline-block;
-	
-	transition: 1s;
-}
-
-.mapTile.settled canvas {
-	
-	vertical-align: middle;
-	
-	transition: 1s;
 }
 
 .mapTile.settled canvas {
 	position: relative;
+	
+	vertical-align: middle;
 	
 	margin: 4px;
 	

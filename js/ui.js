@@ -107,7 +107,7 @@ function startDrag(e)
 	
 	dragDialog.style.cursor = "move";
 	
-	dragDialog.style.transitionDuration = "0.0s";
+	dragDialog.style.transition = "left 0s, top 0s";
 	
 	dragOffset.x = e.screenX - dragDialog.offsetLeft;
 	dragOffset.y = e.screenY - dragDialog.offsetTop;
@@ -124,11 +124,18 @@ function startDrag(e)
 		scrollOffset.x = document.getElementById("mainPanel").scrollLeft;
 		scrollOffset.y = document.getElementById("mainPanel").scrollTop;
 		
+		
 		document.getElementById("mapSpace").appendChild(dragDialog);
 	}
 	
 }
 
+
+function fieldDragIn(e) 
+{
+	document.getElementById("debugCanvas").parentElement.style.display = "inline";
+	console.log("test");
+}
 
 function moveDrag(e) 
 {
@@ -145,8 +152,6 @@ function moveDrag(e)
 	
 	dragDialog.style.left = dragPosition.x + "px";
 	dragDialog.style.top = dragPosition.y + "px";
-	
-	//console.log(dragDialog.style.top);
 	
 	/*
 	if(dragPosition.y - document.getElementById("mainPanel").scrollTop < 0)
@@ -181,7 +186,7 @@ function endDrag(e)
 	
 	dragDialog.style.cursor = "default";
 	
-	dragDialog.style.transitionDuration = "0.2s";
+	dragDialog.style.transition = "left 0.2s, top 0.2s";
 	
 	if (dragDialog.className == "mapTile") //dragging map tile
 	{
@@ -192,15 +197,32 @@ function endDrag(e)
 			dragDialog.className = "mapTile settled";
 		}*/
 		
+		var rect1 = dragDialog.getBoundingClientRect();
+		var rect2 = document.getElementById("roomfield").getBoundingClientRect();
+	
+		var overlap = !(rect1.right < rect2.left || 
+                rect1.left > rect2.right || 
+                rect1.bottom < rect2.top || 
+                rect1.top > rect2.bottom)
 		
+		if (overlap)
+		{
+			dragDialog.className = "mapTile settled";
+			dragDialog.style.left = "0px";
+			dragDialog.style.top = "0px";
+			document.getElementById("roomfield").appendChild(dragDialog);
+		}
+		else
+		{
 		
-		if (dragPosition.x <= 0) dragPosition.x = 0;
-		if (dragPosition.y <= 0)  dragPosition.y = 0;
-		
-		dragDialog.style.left = Math.round(dragPosition.x / 131) * 131 + "px";
-		dragDialog.style.top = Math.round(dragPosition.y / 131) * 131 + "px";
-		
-		dragDialog.style.zIndex = Math.round(dragPosition.y / 131);
+			if (dragPosition.x <= 0) dragPosition.x = 0;
+			if (dragPosition.y <= 0)  dragPosition.y = 0;
+			
+			dragDialog.style.left = Math.round(dragPosition.x / 131) * 131 + "px";
+			dragDialog.style.top = Math.round(dragPosition.y / 131) * 131 + "px";
+			
+			dragDialog.style.zIndex = Math.round(dragPosition.y / 131);
+		}
 	}
 	else //dragging dialog window
 	{
