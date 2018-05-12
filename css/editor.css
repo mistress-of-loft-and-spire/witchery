@@ -159,7 +159,10 @@ a:hover {
 
 canvas {
 	background: #251e30;
-	box-shadow: 0 3px 0 1px #251e30;
+	box-shadow: 0 2px #251e30;
+	
+	border: 1px solid #251e30;
+	border-radius: 4px;
 	
 	border-radius: 4px;
 	
@@ -173,13 +176,13 @@ canvas {
 }
 
 
-#listPanel .mapTile {
+mapTile.settled {
 	display: inline-block;
 	
 	transition: 1s;
 }
 
-#listPanel .mapTile canvas {
+.mapTile.settled canvas {
 	
 	vertical-align: middle;
 	
@@ -187,7 +190,9 @@ canvas {
 }
 
 .mapTile.settled canvas {
-	/*position: relative;*/
+	position: relative;
+	
+	margin: 4px;
 	
 	width: 64px;
 	height: 64px;
@@ -204,8 +209,9 @@ canvas {
 
 .dialog {
 	background: #fff;
-	box-shadow: 0 3px 0 1px #251e30;
+	box-shadow: 0 3px #251e30;
 	
+	border: 1px solid #ece8ff;
 	border-radius: 4px;
 	
 	top: 80px;
@@ -250,7 +256,7 @@ canvas {
 	border-radius: 2px;
 	
 	min-height: 22px;
-	padding-left: 8px;
+	padding-left: 4px;
 	
 	font-size: 13px;
 	font-family: monospace;

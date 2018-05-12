@@ -61,7 +61,7 @@ document.addEventListener('touchmove', moveDrag);
 document.addEventListener('touchend', endDrag);
 
 var topZ = 10000;
-
+/*
 function listDrag(e)
 {
 	
@@ -86,7 +86,7 @@ function listDrag(e)
 	
 	bringToTop(dragDialog);
 	
-}
+}*/
 
 
 function startDrag(e)
@@ -98,6 +98,8 @@ function startDrag(e)
 	if (e.target.className == "close") return; //exception for title bar close button
 	
 	dragDialog = e.target.parentElement;
+	
+	if (e.target.className == "icon") dragDialog = e.target.parentElement.parentElement;
 	
 	//document.getElementById("listPanel").appendChild(dragDialog);
 	
@@ -114,7 +116,7 @@ function startDrag(e)
 	
 	if (dragDialog.className == "mapTile")
 	{
-		console.log(dragDialog.offsetTop + "," + document.getElementById("mainPanel").scrollTop);
+		
 		/*
 		dragMouseLast.x = dragDialog.parentElement.offsetLeft + document.getElementById("roomsDialog").offsetLeft;
 		dragMouseLast.y = dragDialog.parentElement.offsetTop + document.getElementById("roomsDialog").offsetTop;*/
@@ -144,7 +146,7 @@ function moveDrag(e)
 	dragDialog.style.left = dragPosition.x + "px";
 	dragDialog.style.top = dragPosition.y + "px";
 	
-	console.log(dragDialog.style.top);
+	//console.log(dragDialog.style.top);
 	
 	/*
 	if(dragPosition.y - document.getElementById("mainPanel").scrollTop < 0)
