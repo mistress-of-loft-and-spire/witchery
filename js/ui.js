@@ -185,10 +185,10 @@ function endDrag(e)
 	{
 		console.log(dragPosition.y);
 		
-		if(dragDialog.parentElement.id == "listPanel")
+		/*if(dragDialog.parentElement.id == "listPanel")
 		{
 			dragDialog.className = "mapTile settled";
-		}
+		}*/
 		
 		
 		

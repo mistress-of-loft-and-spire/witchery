@@ -186,7 +186,7 @@ canvas {
 	transition: 1s;
 }
 
-#listPanel .mapTile.settled canvas {
+.mapTile.settled canvas {
 	/*position: relative;*/
 	
 	width: 64px;
