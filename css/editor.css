@@ -194,6 +194,8 @@ canvas {
 	width: 64px;
 	height: 64px;
 }
+
+
 	
 
 
@@ -240,7 +242,38 @@ canvas {
 
 
 
-.button, button, textarea, p {
+.field, textarea {
+	overflow: scroll;
+	resize: both;
+}
+
+.field, textarea, input {
+	border: solid 1px #dfd6f4;
+	border-radius: 2px;
+	
+	min-height: 22px;
+	padding-left: 8px;
+	
+	font-size: 13px;
+	font-family: monospace;
+}
+
+.control {
+	background: #ece8ff;
+	border: none;
+	
+	border-radius: 4px;
+	
+	display: inline-block;
+	
+	padding: 8px 12px 7px 12px;
+	
+	color: #7664a0;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.button, button, textarea, p, .field, .control {
 	margin: 0px;
 	margin-bottom: 14px;
 	
@@ -291,9 +324,4 @@ button.close {
 	margin: 0;
 	
 	font-size: 14px;
-}
-
-textarea {
-	font-size: 13px;
-	font-family: monospace;
 }
