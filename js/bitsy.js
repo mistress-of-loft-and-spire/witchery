@@ -48,7 +48,7 @@ function addCanvas(id)
 		console.log(roomLayout);
 	}
 	
-	document.getElementById("mapSpace").appendChild(canvasContainer);
+	document.getElementById("roomfield").appendChild(canvasContainer);
 	
 	var canvas = document.getElementById("canvas-" + id);
 	canvas.width = 128;

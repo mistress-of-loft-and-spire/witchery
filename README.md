@@ -14,11 +14,13 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 * touch drag
 * zoom
 
+* show exit connections somehow?
+
 ## known issues
 
 * buttons can be pressed by dragging a left click on them?
-* scolling while dragging room tile -> offset
 * ups, i forgot items
+* update room tile position during scroll
 * rooms with omitted palette id can not be read (how can this be regexed?)
 
 ## contributing

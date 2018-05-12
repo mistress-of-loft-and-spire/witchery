@@ -48,7 +48,8 @@ function bringToTop(item)
 // DRAGGING ELEMENTS
 
 var dragDialog = null;
-var dragMouseLast = {x:0, y:0};
+var dragOffset = {x:0, y:0};
+var scrollOffset = {x:0, y:0};
 var dragPosition = {x:0, y:0};
 
 document.addEventListener("mousemove", moveDrag);
@@ -60,8 +61,6 @@ document.addEventListener('touchmove', moveDrag);
 document.addEventListener('touchend', endDrag);
 
 var topZ = 10000;
-
-
 
 function listDrag(e)
 {
@@ -82,8 +81,8 @@ function listDrag(e)
 	dragPosition.x = dragDialog.offsetLeft;
 	dragPosition.y = dragDialog.offsetTop;
 	
-	dragMouseLast.x = e.screenX;
-	dragMouseLast.y = e.screenY;
+	dragOffset.x = e.screenX;
+	dragOffset.y = e.screenY;
 	
 	bringToTop(dragDialog);
 	
@@ -108,13 +107,23 @@ function startDrag(e)
 	
 	dragDialog.style.transitionDuration = "0.0s";
 	
-	dragPosition.x = dragDialog.offsetLeft;
-	dragPosition.y = dragDialog.offsetTop;
-	
-	dragMouseLast.x = e.screenX;
-	dragMouseLast.y = e.screenY;
+	dragOffset.x = e.screenX - dragDialog.offsetLeft;
+	dragOffset.y = e.screenY - dragDialog.offsetTop;
 	
 	bringToTop(dragDialog);
+	
+	if (dragDialog.className == "mapTile")
+	{
+		console.log(dragDialog.offsetTop + "," + document.getElementById("mainPanel").scrollTop);
+		/*
+		dragMouseLast.x = dragDialog.parentElement.offsetLeft + document.getElementById("roomsDialog").offsetLeft;
+		dragMouseLast.y = dragDialog.parentElement.offsetTop + document.getElementById("roomsDialog").offsetTop;*/
+		
+		scrollOffset.x = document.getElementById("mainPanel").scrollLeft;
+		scrollOffset.y = document.getElementById("mainPanel").scrollTop;
+		
+		document.getElementById("mapSpace").appendChild(dragDialog);
+	}
 	
 }
 
@@ -123,19 +132,21 @@ function moveDrag(e)
 {
 	if (dragDialog == null) return;
 	
+	dragPosition.x = e.screenX - dragOffset.x;
+	dragPosition.y = e.screenY - dragOffset.y;
 	
-	dragPosition.x += e.screenX - dragMouseLast.x;
-	dragPosition.y += e.screenY - dragMouseLast.y;
+	if (dragDialog.className == "mapTile")
+	{
+		dragPosition.x -= scrollOffset.x - document.getElementById("mainPanel").scrollLeft;
+		dragPosition.y -= scrollOffset.y - document.getElementById("mainPanel").scrollTop;
+	}
 	
 	dragDialog.style.left = dragPosition.x + "px";
 	dragDialog.style.top = dragPosition.y + "px";
 	
-	dragMouseLast.x = e.screenX;
-	dragMouseLast.y = e.screenY;
+	console.log(dragDialog.style.top);
 	
-	
-	
-	
+	/*
 	if(dragPosition.y - document.getElementById("mainPanel").scrollTop < 0)
 	{
 		
@@ -156,7 +167,7 @@ function moveDrag(e)
 	else
 	{
 		document.getElementById("mapSpace").appendChild(dragDialog);
-	}
+	}*/
 	
 }
 

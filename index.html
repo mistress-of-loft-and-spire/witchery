@@ -24,18 +24,18 @@
 			<div id="toolPanel">
 				
 				<button id="loadDialogButton" title="load game data" onmouseup="toggle(loadDialog);"><span class="icon">&#128428;&#xFE0E;</span> game data</button>
-				<button id="loadDialogButton" title="select rooms to place" onmouseup="toggle(tilesDialog);"><span class="icon">&#9638;&#xFE0E;</span> room tiles</button>
+				<button id="roomsDialogButton" title="select rooms to place" onmouseup="toggle(roomsDialog);"><span class="icon">&#9638;&#xFE0E;</span> rooms</button>
 				<button id="aboutDialogButton"title="some infos about this tool" onmouseup="toggle(aboutDialog);"><span class="icon">&#10024;&#xFE0E;</span> about</button>
 				
 				<div id="title">no game data loaded</div>
 				
 			</div>
 			
-			<div id="listPanel">
+			<!-- <div id="listPanel">
 			
 					
 				
-			</div>
+			</div> -->
 			
 			<div id="mainPanel">
 			
@@ -57,12 +57,16 @@ remember to make a backup copy first, just in case" style="min-width:300px;heigh
 				
 				<!-- DIALOGS: ROOM TILES -->
 				
-				<div id="tilesDialog" style="left:820px;" class="dialog">
-					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#9638;&#xFE0E;</span> room tiles<button title="close window" class="close" onmouseup="hide(tilesDialog);">&#10006;</button></div>
+				<div id="roomsDialog" style="left:820px;" class="dialog">
+					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#9638;&#xFE0E;</span> rooms<button title="close window" class="close" onmouseup="hide(roomsDialog);">&#10006;</button></div>
 					
 					<div class="content">
 					
-						<div id="roomfield" class="field" style="min-width:160px;width:300px;height:350px;"></div>
+						<div id="roomfield" class="field" style="min-width:160px;width:300px;height:350px;">
+							
+							
+							
+						</div>
 
 						<div class="control" onmouseup="load();">&#128269;&#xFE0E;&nbsp;&nbsp;<input id="searchfield" title="search rooms by name" placeholder="search rooms"></textarea></div>
 					
