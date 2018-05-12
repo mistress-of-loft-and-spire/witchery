@@ -22,6 +22,7 @@
 			<div id="toolPanel">
 				
 				<button id="loadDialogButton" title="load game data" onmouseup="toggle(loadDialog);"><span class="icon">&#128428;&#xFE0E;</span> game data</button>
+				<button id="loadDialogButton" title="select rooms to place" onmouseup="toggle(tilesDialog);"><span class="icon">&#9638;&#xFE0E;</span> room tiles</button>
 				<button id="aboutDialogButton"title="some infos about this tool" onmouseup="toggle(aboutDialog);"><span class="icon">&#10024;&#xFE0E;</span> about</button>
 				
 				<div id="title">no game data loaded</div>
@@ -186,7 +187,21 @@ VAR a
 
 </textarea>
 						<button title="game data" onmouseup="load();">&#128229;&#xFE0E; load data</button>
-						<button title="game data" onmouseup="load();">&#128203;&#xFE0E; copy to clipboard</button>
+						<button title="game data" onmouseup="load();">&#127879;&#xFE0E; generate</button>
+					
+					</div>
+				</div>
+				
+				<div id="piecesDialog" style="left:820px;" class="dialog">
+					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#9638;&#xFE0E;</span> room tiles<button title="close window" class="close" onmouseup="hide(loadDialog);">&#10006;</button></div>
+					
+					<div class="content">
+					
+						<textarea id="datafield" title="" placeholder="paste your game data here
+
+remember to make a backup copy first, just in case" style="min-width:300px;height:350px;"></textarea>
+
+						<button title="game data" onmouseup="load();">&#128269;&#xFE0E; search</button>
 					
 					</div>
 				</div>

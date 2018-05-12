@@ -161,7 +161,7 @@ a:hover {
 
 canvas {
 	background: #251e30;
-	box-shadow: 0 4px 0 0 #251e30;
+	box-shadow: 0 3px 0 1px #251e30;
 	
 	border-radius: 4px;
 	
@@ -204,7 +204,7 @@ canvas {
 
 .dialog {
 	background: #fff;
-	box-shadow: 0 4px 0 0 #251e30;
+	box-shadow: 0 3px 0 1px #251e30;
 	
 	border-radius: 4px;
 	
