@@ -3,6 +3,7 @@
 
 function load()
 {
+	if(defaultData) document.getElementById("datafield").value = defaultData;
 	
 	var i = 0;
 	
