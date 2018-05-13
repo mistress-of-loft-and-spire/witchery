@@ -116,8 +116,8 @@ function startDrag(e)
 	{
 		
 		/*
-		dragMouseLast.x = dragDialog.parentElement.offsetLeft + document.getElementById("roomsDialog").offsetLeft;
-		dragMouseLast.y = dragDialog.parentElement.offsetTop + document.getElementById("roomsDialog").offsetTop;*/
+		dragMouseLast.x = dragDialog.parentElement.offsetLeft + document.getElementById("roomDialog").offsetLeft;
+		dragMouseLast.y = dragDialog.parentElement.offsetTop + document.getElementById("roomDialog").offsetTop;*/
 		
 		scrollOffset.x = document.getElementById("mainPanel").scrollLeft;
 		scrollOffset.y = document.getElementById("mainPanel").scrollTop;

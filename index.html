@@ -12,8 +12,9 @@
 		<script src="js/globals.js"></script>
 		<script src="js/bitsy.js"></script>
 		<script src="js/ui.js"></script>
+		<script src="js/ui-storage.js"></script>
 		
-		<script src="js/default-data.js"></script>
+		<script src="js/globals-default-data.js"></script>
 		
 	</head>
 	
@@ -23,8 +24,8 @@
 		
 			<div id="toolPanel">
 				
-				<button id="loadDialogButton" title="load game data" onmouseup="toggle(loadDialog);"><span class="icon">&#128428;&#xFE0E;</span> game data</button>
-				<button id="roomsDialogButton" title="select rooms to place" onmouseup="toggle(roomsDialog);"><span class="icon">&#9638;&#xFE0E;</span> rooms</button>
+				<button id="dataDialogButton" title="load game data" onmouseup="toggle(dataDialog);"><span class="icon">&#128428;&#xFE0E;</span> game data</button>
+				<button id="roomDialogButton" title="select rooms to place" onmouseup="toggle(roomDialog);"><span class="icon">&#9638;&#xFE0E;</span> rooms</button>
 				<button id="aboutDialogButton"title="some infos about this tool" onmouseup="toggle(aboutDialog);"><span class="icon">&#10024;&#xFE0E;</span> about</button>
 				
 				<div id="title">no game data loaded</div>
@@ -41,8 +42,8 @@
 			
 				<!-- DIALOGS: LOAD DATA -->
 			
-				<div id="loadDialog" style="left:420px;" class="dialog">
-					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#128428;&#xFE0E;</span> game data<button title="close window" class="close" onmouseup="hide(loadDialog);">&#10006;</button></div>
+				<div id="dataDialog" style="left:420px;" class="dialog">
+					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#128428;&#xFE0E;</span> game data<button title="close window" class="close" onmouseup="hide(dataDialog);">&#10006;</button></div>
 					
 					<div class="content">
 					
@@ -57,8 +58,8 @@ remember to make a backup copy first, just in case" style="min-width:300px;heigh
 				
 				<!-- DIALOGS: ROOM TILES -->
 				
-				<div id="roomsDialog" style="left:820px;" class="dialog">
-					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#9638;&#xFE0E;</span> rooms<button title="close window" class="close" onmouseup="hide(roomsDialog);">&#10006;</button></div>
+				<div id="roomDialog" style="left:820px;" class="dialog">
+					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#9638;&#xFE0E;</span> rooms<button title="close window" class="close" onmouseup="hide(roomDialog);">&#10006;</button></div>
 					
 					<div class="content">
 					
