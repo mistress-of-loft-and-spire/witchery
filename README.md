@@ -14,7 +14,8 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 * touch drag
 * zoom
 * swap overlapping room tiles
-
+* save dialog positions between sessions
+* group select
 * show exit connections somehow?
 
 ## known issues

@@ -3,7 +3,10 @@
 
 function load()
 {
-	if(defaultData) document.getElementById("datafield").value = defaultData;
+	if(defaultData) {
+		document.getElementById("datafield").value = defaultData;
+		defaultData = null;
+	}
 	
 	var i = 0;
 	
@@ -36,8 +39,8 @@ function addCanvas(id)
 	
 	// add room canvas container to html with appropriate properties
 	var canvasContainer = document.createElement("div");
-    canvasContainer.setAttribute("class", "mapTile settled");
-    canvasContainer.innerHTML = "<canvas id='canvas-" + id + "' onmousedown='startDrag(event);'></canvas>";
+    canvasContainer.setAttribute("class", "mapTile inList");
+    canvasContainer.innerHTML = "<canvas id='canvas-" + id + "' title='room " + id + "' onmousedown='startDrag(event);'></canvas>";
 	
 	// check if imported layout data is available for this room
 	if (roomLayout && id in roomLayout)

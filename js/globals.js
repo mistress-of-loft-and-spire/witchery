@@ -23,6 +23,11 @@ var gameSprites = {};
 var roomLayout = {};
 
 
+// room tile scaling
+var canvasSize = 128;
+var zoomFactor = 1;
+
+
 // witchery init
 function start()
 {

@@ -103,18 +103,16 @@ function startDrag(e)
 	
 	//document.getElementById("listPanel").appendChild(dragDialog);
 	
-	if (dragDialog.className == "mapTile settled") dragDialog.className = "mapTile";
-	
 	dragDialog.style.cursor = "move";
 	
-	dragDialog.style.transition = "left 0s, top 0s";
+	//dragDialog.style.transition = "left 0s, top 0s";
 	
 	dragOffset.x = e.screenX - dragDialog.offsetLeft;
 	dragOffset.y = e.screenY - dragDialog.offsetTop;
 	
 	bringToTop(dragDialog);
 	
-	if (dragDialog.className == "mapTile")
+	if (dragDialog.classList.contains("mapTile"))
 	{
 		
 		/*
@@ -124,9 +122,23 @@ function startDrag(e)
 		scrollOffset.x = document.getElementById("mainPanel").scrollLeft;
 		scrollOffset.y = document.getElementById("mainPanel").scrollTop;
 		
+		if (dragDialog.classList.contains("inList"))
+		{
+			var rect1 = dragDialog.getBoundingClientRect();
+			
+			dragOffset.x = e.screenX - rect1.left + 30;
+			dragOffset.y = e.screenY - rect1.top + 118;
+			
+			scrollOffset.x = 0;
+			scrollOffset.y = 0;
+			
+			dragDialog.classList.remove("inList");
+		}
 		
 		document.getElementById("mapSpace").appendChild(dragDialog);
 	}
+	
+	moveDrag(e);
 	
 }
 
@@ -137,6 +149,10 @@ function fieldDragIn(e)
 	console.log("test");
 }
 
+var there = document.createElement("div");
+    there.setAttribute("class", "mapTile inList");
+    there.innerHTML = "<canvas id='canvasDebug'></canvas>";
+
 function moveDrag(e) 
 {
 	if (dragDialog == null) return;
@@ -144,7 +160,7 @@ function moveDrag(e)
 	dragPosition.x = e.screenX - dragOffset.x;
 	dragPosition.y = e.screenY - dragOffset.y;
 	
-	if (dragDialog.className == "mapTile")
+	if (dragDialog.classList.contains("mapTile"))
 	{
 		dragPosition.x -= scrollOffset.x - document.getElementById("mainPanel").scrollLeft;
 		dragPosition.y -= scrollOffset.y - document.getElementById("mainPanel").scrollTop;
@@ -152,6 +168,24 @@ function moveDrag(e)
 	
 	dragDialog.style.left = dragPosition.x + "px";
 	dragDialog.style.top = dragPosition.y + "px";
+	
+	var rect1 = dragDialog.getBoundingClientRect();
+	var rect2 = document.getElementById("roomfield").getBoundingClientRect();
+	
+	var rectOffset = (canvasSize * (0.5 * zoomFactor));
+	
+	var overlap = !(rect1.right + rectOffset < rect2.left || 
+                rect1.left + rectOffset > rect2.right || 
+                rect1.bottom + rectOffset < rect2.top || 
+                rect1.top + rectOffset > rect2.bottom )
+				
+	if (overlap) {
+		dragDialog.classList.add("transparent");
+	}
+	else {
+		
+		dragDialog.classList.remove("transparent");
+	}
 	
 	/*
 	if(dragPosition.y - document.getElementById("mainPanel").scrollTop < 0)
@@ -186,28 +220,30 @@ function endDrag(e)
 	
 	dragDialog.style.cursor = "default";
 	
-	dragDialog.style.transition = "left 0.2s, top 0.2s";
+	//dragDialog.style.transition += "left 0.2s, top 0.2s";
 	
-	if (dragDialog.className == "mapTile") //dragging map tile
+	if (dragDialog.classList.contains("mapTile")) //dragging map tile
 	{
 		console.log(dragPosition.y);
 		
 		/*if(dragDialog.parentElement.id == "listPanel")
 		{
-			dragDialog.className = "mapTile settled";
+			dragDialog.className = "mapTile inList";
 		}*/
 		
 		var rect1 = dragDialog.getBoundingClientRect();
 		var rect2 = document.getElementById("roomfield").getBoundingClientRect();
 	
-		var overlap = !(rect1.right < rect2.left || 
-                rect1.left > rect2.right || 
-                rect1.bottom < rect2.top || 
-                rect1.top > rect2.bottom)
+		var rectOffset = (canvasSize * (0.5 * zoomFactor));
+	
+		var overlap = !(rect1.right + rectOffset < rect2.left || 
+                rect1.left + rectOffset > rect2.right || 
+                rect1.bottom + rectOffset < rect2.top || 
+                rect1.top + rectOffset > rect2.bottom )
 		
 		if (overlap)
 		{
-			dragDialog.className = "mapTile settled";
+			dragDialog.className = "mapTile inList";
 			dragDialog.style.left = "0px";
 			dragDialog.style.top = "0px";
 			document.getElementById("roomfield").appendChild(dragDialog);

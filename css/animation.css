@@ -6,9 +6,25 @@
 }
 
 canvas {
-	transition: width 0.5s, height 0.5s;
+	transition: 0.5s;
 }
 
-.mapTile.settled canvas {
-	transition: width 0.5s, height 0.5s;
+.mapTile {
+	
+}
+
+.mapTile.transparent {
+	opacity: 0.7;
+}
+
+.mapTile.transparent canvas {
+	width: 128px;
+	height: 128px;
+}
+
+.mapTile.inList canvas {
+	width: 64px;
+	height: 64px;
+	
+	
 }

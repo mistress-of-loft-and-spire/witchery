@@ -150,14 +150,11 @@ a:hover {
 }
 
 
-
-/*.abs { position: absolute !important; }*/
-
 canvas {
 	background: #251e30;
-	box-shadow: 0 2px #251e30;
+	box-shadow: 0 3px #251e30;
 	
-	border: 1px solid #251e30;
+	/*border: 1px solid #251e30;*/
 	border-radius: 4px;
 	
 	border-radius: 4px;
@@ -181,11 +178,11 @@ canvas {
 
 }
 
-mapTile.settled {
+mapTile.inList {
 	display: inline-block;
 }
 
-.mapTile.settled canvas {
+.mapTile.inList canvas {
 	position: relative;
 	
 	vertical-align: middle;
