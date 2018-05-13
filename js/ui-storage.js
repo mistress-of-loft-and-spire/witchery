@@ -13,12 +13,26 @@ function storeDialog(dialog, setting, value)
 
 // RESTORE DIALOG SETTING
 
-function setDialog(dialog, setting)
+function restoreDialog(dialog, setting)
 {
-	if (typeof(Storage) !== "undefined" && localStorage.getItem(dialog + setting))
+	if (typeof(Storage) !== "undefined")
 	{
-		// see https://stackoverflow.com/a/3968772
-		document.getElementById(dialog).style.cssText += ";" + setting + ": " + localStorage.getItem(dialog + setting) + ";";
+	
+		var storedValue = localStorage.getItem(dialog + setting);
+		
+		if(storedValue)
+		{
+			if(setting == "display")
+			{
+				if(storedValue == "block") show(document.getElementById(dialog), false);
+				else 					   hide(document.getElementById(dialog));
+			}
+			else
+			{
+				// see https://stackoverflow.com/a/3968772
+				document.getElementById(dialog).style.cssText += ";" + setting + ": " + storedValue + ";";
+			}
+		}
 	}
 }
 
@@ -26,15 +40,27 @@ function setDialog(dialog, setting)
 
 function restoreAllDialogs()
 {
-	setDialog("dataDialog", "display");
-	setDialog("dataDialog", "left");
-	setDialog("dataDialog", "right");
-	setDialog("datafield", "width");
-	setDialog("datafield", "height");
 	
-	setDialog("roomDialog", "left");
-	setDialog("roomDialog", "right");
-	setDialog("roomDialog", "display");
-	setDialog("roomfield", "width");
-	setDialog("roomfield", "height");
+	restoreDialog("dataDialog", "display");
+	restoreDialog("dataDialog", "left");
+	restoreDialog("dataDialog", "top");
+	restoreDialog("datafield", "width");
+	restoreDialog("datafield", "height");
+	
+	restoreDialog("roomDialog", "left");
+	restoreDialog("roomDialog", "top");
+	restoreDialog("roomDialog", "display");
+	restoreDialog("roomfield", "width");
+	restoreDialog("roomfield", "height");
+	
+	restoreDialog("aboutDialog", "display");
+	restoreDialog("aboutDialog", "left");
+	restoreDialog("aboutDialog", "top");
+}
+
+// CLEAR ALL PREVIOUSLY STORED SETTINGS, unused for now
+
+function clearStorage()
+{
+	localStorage.clear();
 }

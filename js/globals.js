@@ -31,5 +31,6 @@ var zoomFactor = 1;
 // witchery init
 function start()
 {
+	restoreAllDialogs(); // in ui-storage.js
 	load(); // in bitsy.js
 }

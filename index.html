@@ -42,14 +42,14 @@
 			
 				<!-- DIALOGS: LOAD DATA -->
 			
-				<div id="dataDialog" style="left:420px;" class="dialog">
+				<div id="dataDialog" style="left:20px;display:none;" class="dialog">
 					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#128428;&#xFE0E;</span> game data<button title="close window" class="close" onmouseup="hide(dataDialog);">&#10006;</button></div>
 					
 					<div class="content">
 					
 						<textarea id="datafield" title="paste your raw game data here" placeholder="paste your game data here
 
-remember to make a backup copy first, just in case" style="min-width:300px;height:350px;"></textarea>
+remember to make a backup copy first, just in case" style="min-width:300px;height:400px;" onmouseup="dialogField(event);"></textarea>
 						<button title="game data" onmouseup="load();">&#128229;&#xFE0E; load data</button>
 						<button title="game data" onmouseup="load();">&#127879;&#xFE0E; generate</button>
 					
@@ -58,12 +58,12 @@ remember to make a backup copy first, just in case" style="min-width:300px;heigh
 				
 				<!-- DIALOGS: ROOM TILES -->
 				
-				<div id="roomDialog" style="left:820px;" class="dialog">
+				<div id="roomDialog" style="left:380px;display:none;" class="dialog">
 					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#9638;&#xFE0E;</span> rooms<button title="close window" class="close" onmouseup="hide(roomDialog);">&#10006;</button></div>
 					
 					<div class="content">
 					
-						<div id="roomfield" class="field" style="min-width:164px;width:238px;height:350px;">
+						<div id="roomfield" class="field" onmouseup="dialogField(event);" style="min-width:164px;width:238px;height:400px;">
 							
 							
 							
@@ -76,7 +76,7 @@ remember to make a backup copy first, just in case" style="min-width:300px;heigh
 				
 				<!-- DIALOGS: ABOUT -->
 				
-				<div id="aboutDialog" style="left:375px;width:460px;display:none;" class="dialog">
+				<div id="aboutDialog" style="left:674px;width:460px;display:none;" class="dialog">
 					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#10024;&#xFE0E;</span> about this tool<button title="close window" class="close" onmouseup="hide(aboutDialog);">&#10006;</button></div>
 					
 					<div class="content small">

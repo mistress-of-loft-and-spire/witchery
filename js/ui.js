@@ -1,17 +1,19 @@
 
 // SHOWING DIALOGS
 
-function show(e)
+function show(e, animate = true)
 {
 	e.style.display = "block";
 	
 	bringToTop(e)
 	
-	e.style.animation = "wobble 0.3s 1";
+	if(animate) e.style.animation = "wobble 0.3s 1";
 	
 	var button = document.getElementById(e.id + "Button");
 	button.style.color = "#fff";
 	button.style.background = "#413359";
+	
+	storeDialog(e.id, "display", "block");
 }
 
 function hide(e)
@@ -21,6 +23,8 @@ function hide(e)
 	var button = document.getElementById(e.id + "Button");
 	button.style.color = "";
 	button.style.background = "";
+	
+	storeDialog(e.id, "display", "none");
 }
 
 function toggle(e)
@@ -42,6 +46,16 @@ function bringToTop(item)
 	topZ += 1;
 	item.style.zIndex = topZ;
 }
+
+
+// CLICKED FIELD IN DIALOG
+
+function dialogField(e)
+{
+	storeDialog(e.target.id, "width", e.target.style.width);
+	storeDialog(e.target.id, "height", e.target.style.height);
+}
+
 
 
 
@@ -271,7 +285,12 @@ function endDrag(e)
 		if (dialogBox.top <= 0)  dragDialog.style.top = "0px";
 		if (dialogBox.right > windowBox.right) dragDialog.style.left = windowBox.right - dialogBox.right + dialogBox.left + "px";
 		if (dialogBox.bottom > windowBox.bottom)  dragDialog.style.top = windowBox.bottom - dialogBox.bottom + dialogBox.top + "px";
+		
+		storeDialog(dragDialog.id, "left", dragDialog.style.left);
+		storeDialog(dragDialog.id, "top", dragDialog.style.top);
 	}
 
 	dragDialog = null;
 }
+
+
