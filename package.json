@@ -14,6 +14,6 @@
   "author": "voec",
   "license": "-------------",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "1.8.2-beta5"
   }
 }
