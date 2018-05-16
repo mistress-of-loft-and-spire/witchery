@@ -16,6 +16,10 @@ function load()
 		canvasRemove.parentElement.remove();
 	}
 	
+	var gameBitsyVersion = null;
+	var gameRoomFormat = null;
+	var gameWitcheryVersion = null;
+	
 	gameTitle = null;
 	
 	gameRooms = {};
@@ -39,7 +43,8 @@ function addCanvas(id)
 	
 	// add room canvas container to html with appropriate properties
 	var canvasContainer = document.createElement("div");
-    canvasContainer.setAttribute("class", "mapTile inList");
+	canvasContainer.classList.add("mapTile");
+	canvasContainer.dataset.room = id;
     canvasContainer.innerHTML = "<canvas id='canvas-" + id + "' title='room " + id + "' onmousedown='startDrag(event);'></canvas>";
 	
 	// check if imported layout data is available for this room
@@ -48,10 +53,14 @@ function addCanvas(id)
 		canvasContainer.style.left = roomLayout[id][0] * 131 + "px";
 		canvasContainer.style.top = roomLayout[id][1] * 131 + "px";
 		
-		console.log(roomLayout);
+		document.getElementById("mapSpace").appendChild(canvasContainer);
 	}
-	
-	document.getElementById("roomfield").appendChild(canvasContainer);
+	else
+	{
+		canvasContainer.classList.add("inList");
+		
+		document.getElementById("roomfield").appendChild(canvasContainer);
+	}
 	
 	var canvas = document.getElementById("canvas-" + id);
 	canvas.width = 128;
@@ -88,20 +97,42 @@ function addCanvas(id)
 function metadata()
 {
 	
-	if(!roomLayout[0]) return
+	var tempData;
 	
-	var tempData = rawData.split("! ROOM_FORMAT 1");
-	
-	rawData = tempData[0] + "! ROOM_FORMAT 1" + "\n" + "! WITCHERY_METADATA";
-	
-	var i = 0;
-	
-	for (i in roomLayout)
+	if(gameWitcheryVersion) // if there is already metadata, overwrite it
 	{
-		rawData += "[" + roomLayout[i] + ","  + roomLayout[i][0] + ","  + roomLayout[i][1] + "]";
+		tempData = rawData.split(/\n! WITCHERY_METADATA\[(.*)\] (.*)/.exec(rawData)[0]);
+		
+		rawData = tempData[0];
+	}
+	else // otherwise add new metadata
+	{
+		tempData = rawData.split("! ROOM_FORMAT 1");
+		
+		rawData = tempData[0] + "! ROOM_FORMAT 1";
 	}
 	
-	rawData += " " + (version * 10) + tempData[1];
+	gameWitcheryVersion = null;
+	
+	if(Object.keys(roomLayout).length > 0)
+	{
+		
+		rawData += "\n" + "! WITCHERY_METADATA";
+	
+		var i = 0;
+		
+		for (i in roomLayout)
+		{
+			rawData += "[" + i + ","  + roomLayout[i][0] + ","  + roomLayout[i][1] + "]";
+		}
+		
+		gameWitcheryVersion = (version * 10);
+		
+		rawData += " " + gameWitcheryVersion;
+		
+	}
+	
+	rawData += tempData[1];
 	
 	document.getElementById("datafield").value = rawData;
 	

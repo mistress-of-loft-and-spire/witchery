@@ -3,6 +3,7 @@ var defaultData = `Write your game's title here
 # BITSY VERSION 4.8
 
 ! ROOM_FORMAT 1
+! WITCHERY_METADATA[a,1,2][1,4,4][2,4,5] 6
 
 PAL 0
 NAME asds
@@ -15,7 +16,7 @@ PAL 1
 255,255,255
 255,123,255
 
-ROOM 0
+ROOM a
 0,0,0,0,0,0,0,b,0,0,0,0,0,0,0,a
 0,a,0,0,0,b,b,0,b,b,b,b,0,0,0,a
 0,0,0,b,b,0,0,a,a,a,a,0,b,0,0,a

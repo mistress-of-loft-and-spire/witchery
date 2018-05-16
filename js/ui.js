@@ -248,7 +248,6 @@ function endDrag(e)
 	
 	if (dragDialog.classList.contains("mapTile")) //dragging map tile
 	{
-		console.log(dragPosition.y);
 		
 		/*if(dragDialog.parentElement.id == "listPanel")
 		{
@@ -271,6 +270,8 @@ function endDrag(e)
 			dragDialog.style.left = "0px";
 			dragDialog.style.top = "0px";
 			document.getElementById("roomfield").appendChild(dragDialog);
+			
+			delete roomLayout[dragDialog.dataset.room];
 		}
 		else
 		{
@@ -278,11 +279,13 @@ function endDrag(e)
 			if (dragPosition.x <= 0) dragPosition.x = 0;
 			if (dragPosition.y <= 0)  dragPosition.y = 0;
 			
-			dragDialog.style.left = Math.round(dragPosition.x / 131) * 131 + "px";
+			dragDialog.style.left = Math.round(dragPosition.x / 131) * 131 + "px"; // TODO: check 131?
 			dragDialog.style.top = Math.round(dragPosition.y / 131) * 131 + "px";
 			
 			dragDialog.style.zIndex = Math.round(dragPosition.y / 131);
-		}
+			
+			roomLayout[dragDialog.dataset.room] = [Math.round(dragPosition.x / 131), Math.round(dragPosition.y / 131)]
+		}console.log(roomLayout);
 	}
 	else //dragging dialog window
 	{
