@@ -10,11 +10,15 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 
 - [x] how to lay out the rooms for selection?
 - [x] save dialog positions between sessions
-- [ ] export
+- [ ] swap overlapping room tiles
 - [ ] save room layout in bitsy data?
+- [ ] room search
+- [ ] layout generator
+- [ ] room exit generator
+- [ ] try out on-the-fly generation
+- [ ] export
 - [ ] touch drag
 - [ ] zoom
-- [ ] swap overlapping room tiles
 - [ ] group select
 - [ ] show exit connections somehow?
 

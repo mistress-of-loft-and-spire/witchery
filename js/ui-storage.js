@@ -56,6 +56,11 @@ function restoreAllDialogs()
 	restoreDialog("aboutDialog", "display");
 	restoreDialog("aboutDialog", "left");
 	restoreDialog("aboutDialog", "top");
+	
+	// and make sure that they still are within browser boundaries
+	clampInWindowRect(document.getElementById("dataDialog"));
+	clampInWindowRect(document.getElementById("roomDialog"));
+	clampInWindowRect(document.getElementById("aboutDialog"));
 }
 
 // CLEAR ALL PREVIOUSLY STORED SETTINGS, unused for now

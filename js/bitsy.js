@@ -84,6 +84,29 @@ function addCanvas(id)
 	}
 	
 }
+
+function metadata()
+{
+	
+	if(!roomLayout[0]) return
+	
+	var tempData = rawData.split("! ROOM_FORMAT 1");
+	
+	rawData = tempData[0] + "! ROOM_FORMAT 1" + "\n" + "! WITCHERY_METADATA";
+	
+	var i = 0;
+	
+	for (i in roomLayout)
+	{
+		rawData += "[" + roomLayout[i] + ","  + roomLayout[i][0] + ","  + roomLayout[i][1] + "]";
+	}
+	
+	rawData += " " + (version * 10) + tempData[1];
+	
+	document.getElementById("datafield").value = rawData;
+	
+}
+
 	
 // IMPORT RAW GAME DATA
 // uses regular expressions (regex) to parse raw bitsy game data to usable object arrays
@@ -130,7 +153,6 @@ function parse()
 	
 	var paletteRegex = /PAL (.+)\n(?:.|\n)*?(?:(.+),(.+),(.+)\n(.+),(.+),(.+)\n(.+),(.+),(.+))/;
 	var roomRegex = /ROOM (.+)\n((?:(?:\w|,)+?\n){16})(?:.|\n)*?(?:PAL (.+))/;
-				
 	var tileRegex = /TIL (.+)\n((?:\d{8}(?:|\n)){8})/;
 	var spriteRegex = /SPR (.+)\n((?:\d{8}(?:|\n)){8})(?:.|\n)+?POS (.+) (.+),(.+)/;
 	

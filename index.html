@@ -26,6 +26,7 @@
 				
 				<button id="dataDialogButton" title="load game data" onmouseup="toggle(dataDialog);"><span class="icon">&#128428;&#xFE0E;</span> game data</button>
 				<button id="roomDialogButton" title="select rooms to place" onmouseup="toggle(roomDialog);"><span class="icon">&#9638;&#xFE0E;</span> rooms</button>
+				<button id="generatorDialogButton" title="generate room exits" onmouseup="toggle(generatorDialog);"><span class="icon">&#127879;&#xFE0E;</span> generate</button>
 				<button id="aboutDialogButton"title="some infos about this tool" onmouseup="toggle(aboutDialog);"><span class="icon">&#10024;&#xFE0E;</span> about</button>
 				
 				<div id="title">no game data loaded</div>
@@ -40,8 +41,8 @@
 			
 			<div id="mainPanel">
 			
-				<!-- DIALOGS: LOAD DATA -->
-			
+				<!-- DIALOGS: GAME DATA -->
+				
 				<div id="dataDialog" style="left:20px;display:none;" class="dialog">
 					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#128428;&#xFE0E;</span> game data<button title="close window" class="close" onmouseup="hide(dataDialog);">&#10006;</button></div>
 					
@@ -51,12 +52,12 @@
 
 remember to make a backup copy first, just in case" style="min-width:300px;height:400px;" onmouseup="dialogField(event);"></textarea>
 						<button title="game data" onmouseup="load();">&#128229;&#xFE0E; load data</button>
-						<button title="game data" onmouseup="load();">&#127879;&#xFE0E; generate</button>
+						<button title="generate" onmouseup="metadata();">&#127879;&#xFE0E; generate</button>
 					
 					</div>
 				</div>
 				
-				<!-- DIALOGS: ROOM TILES -->
+				<!-- DIALOGS: ROOMS -->
 				
 				<div id="roomDialog" style="left:380px;display:none;" class="dialog">
 					<div class="title" onmousedown="startDrag(event);"><span class="icon">&#9638;&#xFE0E;</span> rooms<button title="close window" class="close" onmouseup="hide(roomDialog);">&#10006;</button></div>
@@ -82,7 +83,7 @@ remember to make a backup copy first, just in case" style="min-width:300px;heigh
 					<div class="content small">
 						
 						<p><img src="img/cat.gif" style="float:left;margin-right:20px;">
-						</br><b>version <script>document.write(version);</script></b>
+						</br><b>version <script>document.write(version);</script> BETA</b>
 						
 						</br></br>
 						overworld witchery is a small tool for connecting <a href="https://ledoux.itch.io/bitsy" target="_blank">bitsy</a> rooms.

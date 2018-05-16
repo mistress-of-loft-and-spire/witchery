@@ -47,6 +47,14 @@ function bringToTop(item)
 	item.style.zIndex = topZ;
 }
 
+function bringToTop2(item2)
+{
+	var item = document.getElementById(item2);
+	
+	topZ += 1;
+	item.style.zIndex = topZ;
+}
+
 
 // CLICKED FIELD IN DIALOG
 
@@ -180,6 +188,8 @@ function moveDrag(e)
 		dragPosition.y -= scrollOffset.y - document.getElementById("mainPanel").scrollTop;
 	}
 	
+	if(dragPosition.y < 0) dragPosition.y = 0;
+	
 	dragDialog.style.left = dragPosition.x + "px";
 	dragDialog.style.top = dragPosition.y + "px";
 	
@@ -277,14 +287,7 @@ function endDrag(e)
 	else //dragging dialog window
 	{
 		
-		var windowBox = document.getElementById("appWindow").getBoundingClientRect();
-		var dialogBox = dragDialog.getBoundingClientRect();
-		
-		//check if in browser window
-		if (dialogBox.left <= 0) dragDialog.style.left = "0px";
-		if (dialogBox.top <= 0)  dragDialog.style.top = "0px";
-		if (dialogBox.right > windowBox.right) dragDialog.style.left = windowBox.right - dialogBox.right + dialogBox.left + "px";
-		if (dialogBox.bottom > windowBox.bottom)  dragDialog.style.top = windowBox.bottom - dialogBox.bottom + dialogBox.top + "px";
+		clampInWindowRect(dragDialog);
 		
 		storeDialog(dragDialog.id, "left", dragDialog.style.left);
 		storeDialog(dragDialog.id, "top", dragDialog.style.top);
@@ -293,4 +296,31 @@ function endDrag(e)
 	dragDialog = null;
 }
 
+
+// MAKE SURE DIALOG BOX IS WITHIN BROWSER WINDOW BOUNDARIES
+
+function clampInWindowRect(dialog)
+{
+
+	var windowRect = document.getElementById("appWindow").getBoundingClientRect();
+	var dialogRect = dialog.getBoundingClientRect();
+	
+	if (dialogRect.left < 0) dialog.style.left = "0px";
+	if (dialogRect.top < 0)  dialog.style.top = "0px";
+	
+	if (dialogRect.top + 48 > windowRect.bottom)  dialog.style.top = windowRect.bottom - 48 + "px";
+	if (dialogRect.right > windowRect.right) dialog.style.left = windowRect.right - dialogRect.right + dialogRect.left + "px";	
+	
+}
+
+function clampAll()
+{
+	
+	clampInWindowRect(document.getElementById("dataDialog"));
+	clampInWindowRect(document.getElementById("roomDialog"));
+	clampInWindowRect(document.getElementById("aboutDialog"));
+}
+	
+
+window.addEventListener("resize", clampAll);
 
