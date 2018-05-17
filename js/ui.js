@@ -83,32 +83,6 @@ document.addEventListener('touchmove', moveDrag);
 document.addEventListener('touchend', endDrag);
 
 var topZ = 10000;
-/*
-function listDrag(e)
-{
-	
-	if (dragDialog != null) return;
-	
-	e.target.style.opacity = 0.5;
-	
-	dragDialog = document.getElementById("canvasa").parentElement;
-	
-	dragDialog.style.cursor = "move";
-	
-	dragDialog.style.transitionDuration = "0.0s";
-	
-	dragDialog.style.left = e.screenX + "px";
-	dragDialog.style.top  = 0 + "px";
-	
-	dragPosition.x = dragDialog.offsetLeft;
-	dragPosition.y = dragDialog.offsetTop;
-	
-	dragOffset.x = e.screenX;
-	dragOffset.y = e.screenY;
-	
-	bringToTop(dragDialog);
-	
-}*/
 
 
 function startDrag(e)
@@ -130,7 +104,7 @@ function startDrag(e)
 	previousPos.x = null;
 	previousPos.y = null;
 	
-	//dragDialog.style.transition = "left 0s, top 0s";
+	dragDialog.style.transition = "left 0s, top 0s";
 	
 	dragOffset.x = e.screenX - dragDialog.offsetLeft;
 	dragOffset.y = e.screenY - dragDialog.offsetTop;
@@ -254,7 +228,7 @@ function endDrag(e)
 	
 	dragDialog.style.cursor = "default";
 	
-	//dragDialog.style.transition += "left 0.2s, top 0.2s";
+	dragDialog.style.transition = "left 0.1s, top 0.1s";
 	
 	if (dragDialog.classList.contains("mapTile")) //dragging map tile
 	{

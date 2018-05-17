@@ -12,9 +12,9 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 - [x] save dialog positions between sessions
 - [x] swap overlapping room tiles
 - [x] save room layout in bitsy data?
-- [ ] room search
-- [ ] layout generator
+- [x] layout generator
 - [ ] room exit generator
+- [ ] room search
 - [ ] try out on-the-fly generation
 - [ ] export
 - [ ] touch drag
