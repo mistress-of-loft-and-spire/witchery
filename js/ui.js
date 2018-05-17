@@ -127,6 +127,9 @@ function startDrag(e)
 	
 	dragDialog.style.cursor = "move";
 	
+	previousPos.x = null;
+	previousPos.y = null;
+	
 	//dragDialog.style.transition = "left 0s, top 0s";
 	
 	dragOffset.x = e.screenX - dragDialog.offsetLeft;
@@ -156,6 +159,11 @@ function startDrag(e)
 			
 			dragDialog.classList.remove("inList");
 		}
+		else
+		{
+			previousPos.x = dragDialog.offsetLeft;
+			previousPos.y = dragDialog.offsetTop;
+		}
 		
 		document.getElementById("mapSpace").appendChild(dragDialog);
 	}
@@ -174,6 +182,8 @@ function fieldDragIn(e)
 var there = document.createElement("div");
     there.setAttribute("class", "mapTile inList");
     there.innerHTML = "<canvas id='canvasDebug'></canvas>";
+	
+var previousPos = {x:0, y:0};
 
 function moveDrag(e) 
 {
@@ -249,21 +259,16 @@ function endDrag(e)
 	if (dragDialog.classList.contains("mapTile")) //dragging map tile
 	{
 		
-		/*if(dragDialog.parentElement.id == "listPanel")
-		{
-			dragDialog.className = "mapTile inList";
-		}*/
-		
 		var rect1 = dragDialog.getBoundingClientRect();
 		var rect2 = document.getElementById("roomfield").getBoundingClientRect();
-	
-		var rectOffset = (canvasSize * (0.5 * zoomFactor));
-	
-		var overlap = !(rect1.right + rectOffset < rect2.left || 
-                rect1.left + rectOffset > rect2.right || 
-                rect1.bottom + rectOffset < rect2.top || 
-                rect1.top + rectOffset > rect2.bottom )
 		
+		var rectOffset = (canvasSize * (0.5 * zoomFactor));
+		
+		var overlap = !(rect1.right + rectOffset < rect2.left || 
+				rect1.left + rectOffset > rect2.right || 
+				rect1.bottom + rectOffset < rect2.top || 
+				rect1.top + rectOffset > rect2.bottom )
+			
 		if (overlap)
 		{
 			dragDialog.className = "mapTile inList";
@@ -275,17 +280,49 @@ function endDrag(e)
 		}
 		else
 		{
-		
 			if (dragPosition.x <= 0) dragPosition.x = 0;
 			if (dragPosition.y <= 0)  dragPosition.y = 0;
 			
-			dragDialog.style.left = Math.round(dragPosition.x / 131) * 131 + "px"; // TODO: check 131?
-			dragDialog.style.top = Math.round(dragPosition.y / 131) * 131 + "px";
+			dragPosition.x = Math.round(dragPosition.x / 131);  // TODO: check 131?
+			dragPosition.y = Math.round(dragPosition.y / 131);
 			
-			dragDialog.style.zIndex = Math.round(dragPosition.y / 131);
+			var i = 0;
 			
-			roomLayout[dragDialog.dataset.room] = [Math.round(dragPosition.x / 131), Math.round(dragPosition.y / 131)]
-		}console.log(roomLayout);
+			for (i in roomLayout)
+			{
+				if (i != dragDialog.dataset.room && roomLayout[i][0] == dragPosition.x && roomLayout[i][1] == dragPosition.y)
+				{
+					targetRoom = document.getElementById("canvas-" + i).parentElement;
+					
+					if(previousPos.x != null)
+					{
+						targetRoom.style.left = previousPos.x + "px";
+						targetRoom.style.top = previousPos.y + "px";
+						
+						targetRoom.style.zIndex = Math.round(previousPos.y / 131);
+						
+						setLayout(targetRoom, {x: Math.round(previousPos.x / 131), y: Math.round(previousPos.y / 131)});
+					}
+					else
+					{
+						targetRoom.className = "mapTile inList";
+						targetRoom.style.left = "0px";
+						targetRoom.style.top = "0px";
+						document.getElementById("roomfield").appendChild(targetRoom);
+						
+						delete roomLayout[targetRoom.dataset.room];
+					}
+				}
+			}
+				
+			dragDialog.style.left = dragPosition.x * 131 + "px";
+			dragDialog.style.top = dragPosition.y * 131 + "px";
+			
+			dragDialog.style.zIndex = dragPosition.y;
+			
+			setLayout(dragDialog, dragPosition);
+		}
+		
 	}
 	else //dragging dialog window
 	{
@@ -294,9 +331,19 @@ function endDrag(e)
 		
 		storeDialog(dragDialog.id, "left", dragDialog.style.left);
 		storeDialog(dragDialog.id, "top", dragDialog.style.top);
+		
 	}
 
 	dragDialog = null;
+}
+
+
+function setLayout(roomTile, roomPosition)
+{
+	
+	roomLayout[roomTile.dataset.room] = [roomPosition.x, roomPosition.y]
+	roomLayout[roomTile.dataset.room] = [roomPosition.x, roomPosition.y]
+	
 }
 
 
