@@ -16,9 +16,9 @@ function load()
 		canvasRemove.parentElement.remove();
 	}
 	
-	var gameBitsyVersion = null;
-	var gameRoomFormat = null;
-	var gameWitcheryVersion = null;
+	gameBitsyVersion = null;
+	gameRoomFormat = null;
+	gameWitcheryVersion = null;
 	
 	gameTitle = null;
 	
@@ -26,6 +26,8 @@ function load()
 	gameTiles = {};
 	gameSprites = {};
 	gamePalettes = { default : [[0,82,204],[128,159,255],[255,255,255]] };
+	
+	roomLayout = {};
 	
 	parse();
 	

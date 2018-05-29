@@ -294,6 +294,8 @@ function endDrag(e)
 			
 			dragDialog.style.zIndex = dragPosition.y;
 			
+			checkExits(dragDialog.dataset.room, dragPosition, null);
+			
 			setLayout(dragDialog, dragPosition);
 		}
 		

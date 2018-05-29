@@ -14,9 +14,8 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 - [x] save room layout in bitsy data?
 - [x] layout generator
 - [ ] room exit generator
-- [ ] room search
+- [ ] room search & name display
 - [ ] try out on-the-fly generation
-- [ ] export
 - [ ] touch drag
 - [ ] zoom
 - [ ] group select
@@ -25,10 +24,13 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 ## known issues
 
 * buttons can be pressed by dragging a left click on them?
+* significant lag when updating gamedata-field
 * ups, i forgot items
 * update room tile position during scroll
 * rooms with omitted palette id can not be read (how can this be regexed?)
 * grid adjustation
+* removed maps -> remove from layout
+* check overlap on load
 
 ## contributing
 
