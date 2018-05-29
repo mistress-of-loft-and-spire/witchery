@@ -26,6 +26,7 @@ try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/
 * buttons can be pressed by dragging a left click on them?
 * significant lag when updating gamedata-field
 * ups, i forgot items
+* palettes with more than three colors not supported
 * update room tile position during scroll
 * rooms with omitted palette id can not be read (how can this be regexed?)
 * grid adjustation

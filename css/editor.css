@@ -295,6 +295,10 @@ mapTile.inList {
 	font-weight: bold;
 }
 
+.button:disabled, button:disabled {
+	color: #d6d1ea;
+}
+
 button+button {
 	margin-left: 10px;
 }
@@ -302,6 +306,11 @@ button+button {
 .button:hover, button:hover,
 .button:focus, button:focus {
 	background: #d6d1ea;
+}
+
+.button:disabled:hover, button:disabled:hover,
+.button:disabled:focus, button:disabled:focus {
+	background: #ece8ff;
 }
 
 .button:active, button:active {

@@ -27,7 +27,6 @@
 				
 				<button id="dataDialogButton" title="load game data" onmouseup="toggle(dataDialog);"><span class="icon">&#128428;&#xFE0E;</span> game data</button>
 				<button id="roomDialogButton" title="select rooms to place" onmouseup="toggle(roomDialog);"><span class="icon">&#9638;&#xFE0E;</span> rooms</button>
-				<button id="generatorDialogButton" title="generate room exits" onmouseup="toggle(generatorDialog);"><span class="icon">&#127879;&#xFE0E;</span> generate</button>
 				<button id="aboutDialogButton"title="some infos about this tool" onmouseup="toggle(aboutDialog);"><span class="icon">&#10024;&#xFE0E;</span> about</button>
 				
 				<div id="title">no game data loaded</div>
@@ -53,7 +52,7 @@
 
 remember to make a backup copy first, just in case" style="min-width:300px;height:400px;" onmouseup="dialogField(event);"></textarea>
 						<button title="game data" onmouseup="load();">&#128229;&#xFE0E; load data</button>
-						<button title="generate" onmouseup="metadata();">&#127879;&#xFE0E; generate</button>
+						<button disabled title="generate" onmouseup="metadata();">&#127879;&#xFE0E; generate</button>
 					
 					</div>
 				</div>
@@ -71,7 +70,7 @@ remember to make a backup copy first, just in case" style="min-width:300px;heigh
 							
 						</div>
 
-						<div class="control" onmouseup="load();">&#128269;&#xFE0E;&nbsp;&nbsp;<input id="searchfield" title="search rooms by name" placeholder="search rooms"></textarea></div>
+						<div class="control">&#128269;&#xFE0E;&nbsp;&nbsp;<input disabled id="searchfield" title="search rooms by name" placeholder="search rooms"></textarea></div>
 					
 					</div>
 				</div>
