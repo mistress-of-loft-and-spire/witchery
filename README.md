@@ -4,7 +4,11 @@ load in some game data, arrange your rooms and overworld witchery will do all th
 
 try it out over here: [https://voec.github.io/witchery/](https://voec.github.io/witchery/)
 
-*this tool is still in development, check back later for more ;)*
+***i'm not actively working on this anymore, but with a few caveats witchery can already be used.***
+
+***most importantly keep in mind, that witchery doesn't remove previously generated exits. so once you write them into your gamedata, you can not change your room layout afterwards (unless you manually remove all exits before regenerating them).***
+
+***i suggest keeping a backup of your gamedata. and aside from that you may have to manually make some adjustments to your gamedata if need be.***
 
 ## todo
 
