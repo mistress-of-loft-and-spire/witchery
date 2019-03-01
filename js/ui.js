@@ -132,14 +132,14 @@ function startDrag(e)
 			scrollOffset.y = 0;
 			
 			dragDialog.classList.remove("inList");
+			
+			document.getElementById("mapSpace").appendChild(dragDialog);
 		}
 		else
 		{
 			previousPos.x = dragDialog.offsetLeft;
 			previousPos.y = dragDialog.offsetTop;
 		}
-		
-		document.getElementById("mapSpace").appendChild(dragDialog);
 	}
 	
 	moveDrag(e);
@@ -294,7 +294,7 @@ function endDrag(e)
 			
 			dragDialog.style.zIndex = dragPosition.y;
 			
-			checkExits(dragDialog.dataset.room, dragPosition, null);
+			//checkExits(dragDialog.dataset.room, dragPosition, null);
 			
 			setLayout(dragDialog, dragPosition);
 		}

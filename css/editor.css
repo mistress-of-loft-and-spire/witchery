@@ -172,14 +172,15 @@ canvas {
 
 
 .mapTile {
-	position: relative;
+	position: absolute;
 	display: inline;
 	
 
 }
 
-mapTile.inList {
+.mapTile.inList {
 	display: inline-block;
+	position: relative;
 }
 
 .mapTile.inList canvas {

@@ -61,9 +61,9 @@ function connectExits(room, direction, targetRoom)
 
 }
 
-function disconnectExits(room, direction)
+function disconnectExits(room)
 {
-	
+	//this is missing!
 }
 
 

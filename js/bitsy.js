@@ -96,6 +96,7 @@ function addCanvas(id)
 	
 }
 
+//GENERATES METADATA AND THEN THE EXIT CONNECTIONS
 function metadata()
 {
 	
@@ -137,6 +138,21 @@ function metadata()
 	rawData += tempData[1];
 	
 	document.getElementById("datafield").value = rawData;
+	
+	
+	//NOW ON TO THE EXITS..
+	
+	
+	if(Object.keys(roomLayout).length > 0)
+	{
+		var i = 0;
+		
+		for (i in roomLayout)
+		{
+			checkExits(i, {x: roomLayout[i][0], y: roomLayout[i][1]}, null);
+		}
+	}
+	
 	
 }
 
